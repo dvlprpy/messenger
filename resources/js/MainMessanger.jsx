@@ -296,7 +296,8 @@ export default function MainMessanger(){
                                 <i className="bi bi-search chat-contact-icon cursor-pointer"></i>
                             </div>
                         </div>
-
+                        
+                        {/* Messanger Story Bar */}
                        <div className="relative flex items-center mx-auto group">
                             {/* دکمه چپ (فقط دسکتاپ) */}
                             <button

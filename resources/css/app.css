@@ -353,16 +353,3 @@ body {
     drop-shadow(4px 4px 6px rgba(0,0,0,0.3))  /* سایه میانی */
     drop-shadow(6px 6px 10px rgba(0,0,0,0.2)); /* سایه دورتر */
 }
-
-
-/* Messanger Story Section */
-.messanger-story-section{
-    outline: 2px solid purple;
-    outline-offset: 2px;
-    margin-left: 7px;
-    margin-right: 7px;
-}
-.container-story-messanger{
-    overflow: hidden;
-    margin: 0 5px;
-}
