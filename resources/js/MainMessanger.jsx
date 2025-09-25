@@ -297,6 +297,47 @@ export default function MainMessanger(){
                             </div>
                         </div>
 
+                       <div className="relative flex items-center mx-auto group">
+                            {/* دکمه چپ (فقط دسکتاپ) */}
+                            <button
+                                className="hidden md:flex absolute left-2 top-1/2 -translate-y-1/2 bg-white/70 rounded-full p-1 shadow cursor-pointer z-10"
+                                onClick={() =>
+                                document.getElementById("storyList").scrollBy({ left: -120, behavior: "smooth" })
+                                }
+                            >
+                                <i className="bi bi-arrow-left-circle fs-4 text-secondary"></i>
+                            </button>
+
+                            {/* لیست آواتارها */}
+                            <div
+                                id="storyList"
+                                className="flex overflow-hidden whitespace-nowrap scroll-smooth gap-2 p-2 px-10 w-full"
+                            >
+                                {[...Array(10)].map((_, i) => (
+                                <div
+                                    key={i}
+                                    className="p-[2px] rounded-full bg-gradient-to-tr from-pink-500 to-yellow-400 flex-shrink-0"
+                                >
+                                    <img
+                                    src="/Icon/avatar.svg"
+                                    alt=""
+                                    className=" cursor-pointer w-[60px] h-[60px] rounded-full border-2 border-white"
+                                    />
+                                </div>
+                                ))}
+                            </div>
+
+                            {/* دکمه راست (فقط دسکتاپ) */}
+                            <button
+                                className="hidden md:flex absolute right-2 top-1/2 -translate-y-1/2 bg-white/70 rounded-full p-1 shadow cursor-pointer z-10"
+                                onClick={() =>
+                                document.getElementById("storyList").scrollBy({ left: 120, behavior: "smooth" })
+                                }
+                            >
+                                <i className="bi bi-arrow-right-circle fs-4 text-secondary"></i>
+                            </button>
+                        </div>
+
                         {/* <!-- Messanger Chat List OR Contact  --> */}
                         <div className="bottom-style overflow-y-scroll">
                             
