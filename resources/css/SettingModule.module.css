@@ -1,0 +1,26 @@
+.li-child-setting {
+    transition: background-color 0.2s ease-in-out, transform 0.1s ease-in-out;
+    cursor: pointer;
+    padding: 10px;
+    border-radius: 8px;
+}
+
+.li-child-setting:hover {
+    background-color: #f8f9fa;
+    transform: scale(1.02);
+}
+
+.setting-title {
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-5px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

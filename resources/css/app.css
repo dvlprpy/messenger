@@ -1,0 +1,355 @@
+@import './bootstrap.min.css';
+@import 'tailwindcss';
+
+@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
+@source '../../storage/framework/views/*.php';
+@source '../**/*.blade.php';
+@source '../**/*.js';
+
+@theme {
+    --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
+        'Segoe UI Symbol', 'Noto Color Emoji';
+}
+
+
+/* global css */
+@import './SettingModule.module.css';
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+}
+
+.directionRtl{
+  direction: rtl;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+
+/* .dropdown{
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown > .dropdown-menu{
+  position: absolute;
+  top: 5px;
+  left: 0;
+  z-index: 1;
+} */
+
+
+
+
+/* body{
+    margin: 10px 0;
+    height: 95vh;
+}
+ */
+/* My Customize Style */
+.cursor-pointer{
+    cursor: pointer;
+}
+.font-size-x-small{
+    font-size: x-small;
+}
+.font-size-small{
+    font-size: small;
+}
+.text-align-end{
+    text-align: end;
+}
+.text-align-justify{
+    text-align: justify;
+}
+.transfrom-translate-X-95{
+    margin-left: calc(100% / 2);
+}
+.margin-left-20{
+    margin-left: 20px;
+}
+.margin-left-10{
+    margin-left: 10px;
+}
+.height-80{
+    height: 80vh;
+}
+.width-25-height-25{
+    width: 25px;
+    height: 25px;
+}
+
+.margin-left-auto-right-0{
+    float: right !important;
+}
+
+.custom-box-shadow{
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+.margin-right-left{
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+
+.left-menu-messanger{
+    border-radius: 5px 0 0 5px;
+}
+
+#basic-addon1{
+    cursor: pointer;
+}
+
+.right-menu-message{
+    border-radius: 0 5px 5px 0;
+}
+
+.user-chat-info{
+    border-bottom: 1px solid #adb5bd;
+}
+
+.middle-menu-messanger{
+    overflow-x: hidden;
+    overflow-y: scroll;
+    scrollbar-width: none;
+    border-right: 1px solid #adb5bd;
+}
+
+.bottom-style{
+    overflow-y: scroll;
+    overflow-x: hidden;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+.chat-contact{
+    position: relative;
+}
+
+.chat-contact-icon{
+    position: absolute;
+    right: 7%;
+    padding-top: 5px;
+}
+
+.user-chat-send{
+    border-top: 1px solid #adb5bd;
+}
+
+
+
+/* User Chat Three Dots Drop Down Menu Styles */
+#drop-down-chat-menu {
+    position: relative !important;
+    display: inline-block !important;
+}
+
+#drop-down-menu {
+    position: absolute !important;
+    /* display: none !important; */
+    right: 0 !important;
+    display: flex;
+    flex-direction: column;
+    top: 2rem !important;
+    z-index: 1 !important;
+    width: 200px !important;
+    padding: 5px 10px !important;
+}
+
+#drop-down-menu > li.drop-down-items{
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    list-style-type: none;
+    background-color: white;
+    padding: 5px;
+    cursor: pointer;
+}
+
+#drop-down-menu li.drop-down-items:hover{
+    background-color: oklch(0.92 0.004 286.32);
+}
+/* .drop-down > .drop-down-menu-active{
+    display: block;
+} */
+
+
+
+/* Message Settings Styles */
+.container{
+    box-shadow: rgba(0, 0, 0, 0.56) 0px 22px 100px 4px, rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
+    border-radius: 10px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+    transform: translate(50%, 10%);
+}
+.container > .messanger-settings > ul > li{
+    list-style-type: none;
+    cursor: pointer;
+    font-weight: lighter;
+    text-transform: capitalize;
+    padding: 5px;
+}
+
+.container > .messanger-settings > ul> li:hover{
+    background-color: #dcdde1;
+}
+
+
+/* User Profile Setting */
+.container > .User-profile-Media > ul{
+    padding: 20px;
+}
+.container > .User-profile-Media > ul > li{
+    list-style-type: none;
+    cursor: pointer;
+    font-weight: lighter;
+    text-transform: capitalize;
+    padding: 5px;
+    border-radius: 5px;
+}
+.container > .User-profile-Media > ul > li:hover, .user-profile-block-user:hover{
+    background-color: #dcdde1;
+}
+.user-profile-block-user{
+    margin-bottom: 20px;
+    border-radius: 5px;
+}
+
+.user-chat-content{
+    overflow-x: hidden;
+    overflow-y: scroll;
+    scrollbar-width: none;
+}
+
+
+/* Contact Setting Style */
+.container-contact-list{
+    overflow-x: hidden;
+    overflow-y: scroll;
+    scrollbar-width: none;
+}
+
+
+/* Personal Information Setting Style */
+.container-account{
+    overflow-x: hidden;
+    overflow-y: scroll;
+    scrollbar-width: none;
+}
+
+/* Privacy and Security Setting Style */
+.privacy_Security_container{
+    overflow-x: hidden;
+    overflow-y: scroll;
+    scrollbar-width: none;
+}
+
+/* Advanced Setting Style */
+.advanced-setting-container{
+    overflow-x: hidden;
+    overflow-y: scroll;
+    scrollbar-width: none;
+}
+
+/* Speakers and Camera Setting Style */
+.speakers-and-camera-container-setting{
+    overflow-x: hidden;
+    overflow-y: scroll;
+    scrollbar-width: none;
+}
+
+/* Language Setting Style */
+.language-container-popup{
+    overflow-x: hidden;
+    overflow-y: scroll;
+    scrollbar-width: none;
+}
+.list-of-available-language{
+    overflow-x: hidden;
+    overflow-y: scroll;
+    scrollbar-width: none;
+}
+
+
+/* FAQ Setting Popup Style */
+.faq-container-settings{
+    overflow-y: scroll;
+    overflow-x: hidden;
+    scrollbar-width: none;
+}
+
+
+/* 
+
+    Style Of Call Component
+
+*/
+.Container_Call_Component{
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.Call_Header{
+    height: 10%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.Call_Body{
+    height: 80%;
+    word-wrap: break-word;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    scrollbar-width: none;
+}
+
+.Call_Footer{
+    height: 10%;
+    /* padding-right: 5px;
+    padding-bottom: 15px; */
+}
+
+.user-chat-message-title {
+    display: block;  
+    max-width: 100%; /* نام کاربر از محدوده پیام بیرون نزند */
+    white-space: nowrap; /* از رفتن به خط بعدی جلوگیری کند */
+    overflow: hidden; /* قسمت اضافی متن پنهان شود */
+    text-overflow: ellipsis; /* در صورت زیاد بودن متن، سه نقطه (...) نمایش دهد */
+}
+
+
+/* user chat send (shadow icon) */
+.user-chat-share:hover, 
+.user-chat-mic:hover, 
+.user-chat-emoji:hover, 
+.user-chat-send-icon:hover {
+    filter: 
+    drop-shadow(2px 2px 2px rgba(0,0,0,0.4))  /* سایه نزدیک */
+    drop-shadow(4px 4px 6px rgba(0,0,0,0.3))  /* سایه میانی */
+    drop-shadow(6px 6px 10px rgba(0,0,0,0.2)); /* سایه دورتر */
+}
