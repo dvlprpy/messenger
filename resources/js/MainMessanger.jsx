@@ -322,7 +322,7 @@ export default function MainMessanger(){
                                     <img
                                     src="/Icon/avatar.svg"
                                     alt=""
-                                    className=" cursor-pointer w-[60px] h-[60px] rounded-full border-2 border-white"
+                                    className=" cursor-pointer w-[50px] h-[50px] rounded-full border-2 border-white"
                                     />
                                 </div>
                                 ))}
@@ -375,19 +375,19 @@ export default function MainMessanger(){
                                             <ul id="drop-down-menu">
                                                 <li onClick={() => setOpenUserInfo(!openUserInfo)}
                                                 className="drop-down-items">
-                                                    <img src="/Icon/avatar.svg" alt="Icon Avatar" className="w-25 h-25" />
+                                                    <img src="/Icon/avatar.svg" alt="Icon Avatar" className="w-[30px] h-[30px]" />
                                                     <span>View Profile</span>
                                                 </li>
                                                 <li className="drop-down-items">
-                                                    <img src="/Icon/paint-brush.svg" alt="Paint brush icon" className="w-25 h-25" />
+                                                    <img src="/Icon/paint-brush.svg" alt="Paint brush icon" className="w-[30px] h-[30px]" />
                                                     <span>Set Wallpaper</span>
                                                 </li>
                                                 <li className="drop-down-items">
-                                                    <img src="/Icon/broom.svg" alt="broom icon" className="w-25 h-25" />
+                                                    <img src="/Icon/broom.svg" alt="broom icon" className="w-[30px] h-[30px]" />
                                                     <span>Clear History</span>
                                                 </li>
                                                 <li className="drop-down-items">
-                                                    <img src="/Icon/trash.svg" alt="Trash Icon" className="w-25 h-25" />
+                                                    <img src="/Icon/trash.svg" alt="Trash Icon" className="w-[30px] h-[30px]" />
                                                     <span>Delete Chat</span>
                                                 </li>
                                                 <li className="drop-down-items">
@@ -446,7 +446,7 @@ export default function MainMessanger(){
                 {/* Messanger Settings */}
                 {
                     openSetting && (
-                        <div className="container w-50 z-1 container-messanger-setting position-absolute top-0 start-0 height-80 bg bg-white">
+                        <div className="container w-50 z-10 container-messanger-setting position-absolute top-0 start-0 height-80 bg bg-white">
                             <SettingModule closePopUp={() => setOpenSetting(!openSetting)} dispatch={dispatch}/>
                         </div>
                     )
