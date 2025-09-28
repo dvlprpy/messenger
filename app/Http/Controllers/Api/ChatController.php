@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-class MessageController extends Controller
+class ChatController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -47,9 +48,17 @@ class MessageController extends Controller
     }
 
     /**
-     * Message Status.
+     * user add.
      */
-    public function statuses()
+    public function addUser()
+    {
+        //
+    }
+
+    /**
+     * user remove.
+     */
+    public function removeUser()
     {
         //
     }

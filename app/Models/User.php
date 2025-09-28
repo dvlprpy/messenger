@@ -51,4 +51,9 @@ class User extends Model
     {
         return $this->hasOne(UserSetting::class, 'user_id');
     }
+
+    public function setPasswordAttribute($value)
+    {
+        $this->attributes['password'] = bcrypt($value);
+    }
 }

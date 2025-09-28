@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-class ChatController extends Controller
+class CallController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -31,33 +32,17 @@ class ChatController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * End Call.
      */
-    public function update(Request $request, string $id)
+    public function endCall()
     {
         //
     }
 
     /**
-     * Remove the specified resource from storage.
+     * participants.
      */
-    public function destroy(string $id)
-    {
-        //
-    }
-
-    /**
-     * user add.
-     */
-    public function addUser()
-    {
-        //
-    }
-
-    /**
-     * user remove.
-     */
-    public function removeUser()
+    public function participants()
     {
         //
     }

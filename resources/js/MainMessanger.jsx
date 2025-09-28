@@ -455,7 +455,7 @@ export default function MainMessanger(){
                 {/* User Chat Setting */}
                 {
                     openUserInfo && (
-                        <div className="container container-user-setting w-50 z-1 position-absolute top-0 start-0 height-80 bg bg-light">
+                        <div className="container container-user-setting w-50 z-10 position-absolute top-0 start-0 height-80 bg bg-light">
                             <UserProfileModule closePopUp={() => setOpenUserInfo(!openUserInfo)} userId={1}/>
                         </div>
                     )

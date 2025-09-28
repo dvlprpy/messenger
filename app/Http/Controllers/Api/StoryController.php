@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-class CallController extends Controller
+class StoryController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -31,17 +32,17 @@ class CallController extends Controller
     }
 
     /**
-     * End Call.
+     * Update the specified resource in storage.
      */
-    public function endCall()
+    public function update(Request $request, string $id)
     {
         //
     }
 
     /**
-     * participants.
+     * Remove the specified resource from storage.
      */
-    public function participants()
+    public function destroy(string $id)
     {
         //
     }
