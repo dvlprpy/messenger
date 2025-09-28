@@ -17,10 +17,15 @@ export default function LoginForm({ onSuccess }) {
 
         try {
             await axios.get("/sanctum/csrf-cookie");
-            await axios.post("/login", form);
+            await axios.post("http://messenger.local/api/login", form)
+            .then(function (response) { 
+                console.log(response)
+            }).catch(function (error) {
+                console.log(error)
+            });
 
             setLoading(false);
-            if (onSuccess) onSuccess();
+            // if (onSuccess) onSuccess();
         } catch (err) {
             setLoading(false);
             setError("ایمیل یا رمز عبور اشتباه است.");

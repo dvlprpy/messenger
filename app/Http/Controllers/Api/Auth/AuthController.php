@@ -35,23 +35,25 @@ class AuthController extends Controller
     // --- Login ---
     public function login(Request $request)
     {
-        
-        $data = $request->validate([
+        $request->validate([
             'email' => 'required|email',
             'password' => 'required',
         ]);
 
-        $user = User::where('email', $data['email'])->first();
+        $user = User::where('email', $request->email)->first();
 
-        if (!$user || !Hash::check($data['password'], $user->password)) {
-            return response()->json(['message' => 'ایمیل یا رمز عبور اشتباه است'], 401);
+        if (! $user || !Hash::check($request->password, $user->password)) {
+            return response()->json([
+                'message' => 'ایمیل یا پسورد اشتباه است',
+            ], 401);
         }
 
+        // ساخت توکن
         $token = $user->createToken('auth_token')->plainTextToken;
 
         return response()->json([
-            'message' => 'ورود موفق',
-            'token' => $token,
+            'access_token' => $token,
+            'token_type' => 'Bearer',
             'user' => $user,
         ]);
     }
