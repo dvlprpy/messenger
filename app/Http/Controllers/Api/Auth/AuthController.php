@@ -68,7 +68,7 @@ class AuthController extends Controller
     // --- Forgot Password (send OTP) ---
     public function forgotPassword(Request $request)
     {
-        $request->validate(['email' => 'required|email']);
+        $request->validate(['email' => 'required|email|exists:users,email',]);
 
         $otp = rand(100000, 999999);
 
@@ -93,9 +93,10 @@ class AuthController extends Controller
     public function verifyOtp(Request $request)
     {
         $request->validate([
-            'email' => 'required|email',
-            'code' => 'required|string',
+            'email' => 'required|email|exists:users,email',
+            'code' => 'required|digits:6',
         ]);
+
 
         $otp = PasswordOtp::where('email', $request->email)
             ->where('code', $request->code)
@@ -113,8 +114,8 @@ class AuthController extends Controller
     public function resetPassword(Request $request)
     {
         $request->validate([
-            'email' => 'required|email',
-            'code' => 'required|string',
+            'email' => 'required|email|exists:users,email',
+            'code' => 'required|digits:6',
             'password' => 'required|string|min:6|confirmed',
         ]);
 
@@ -132,7 +133,7 @@ class AuthController extends Controller
             return response()->json(['message' => 'کاربر یافت نشد'], 404);
         }
 
-        $user->update(['password' => Hash::make($request->password)]);
+        $user->update(['password' => $request->password]);
         $otp->delete();
 
         return response()->json(['message' => 'رمز عبور با موفقیت تغییر یافت']);

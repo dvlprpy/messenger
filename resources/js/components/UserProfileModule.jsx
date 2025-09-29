@@ -1,10 +1,7 @@
-export default function UserProfileModule({closePopUp, userId}){
-    
-    const users = [
-        { id: 1, fullname: "Amir Hossein Zolfaghary Nasab", username: "@AH_Zolfaghari", phone: "+989123456789", imgUrl: "/Icon/avatar-man.svg" },
-        { id: 2, fullname: "Sara Razavi", username: "@sara456", phone: "+989123456790", imgUrl: "/Icon/avatar-woman.svg" },
-        { id: "support", fullname: "Volunteer Support", username: "@Support", phone: "+981560", imgUrl: "/Icon/support.svg" }
-    ];
+import { useAuth } from "../AuthContext/AuthContext";
+export default function UserProfileModule({closePopUp}){
+
+    const { user } = useAuth(); 
 
     return(
         <>
@@ -19,52 +16,37 @@ export default function UserProfileModule({closePopUp, userId}){
                     </div>
                 </div>
             </div>
+      
+            {/*  Profile Pictire  */}
+            <div className="user-chat-profile d-flex flex-row justify-content-evenly ms-4 me-4 p-3">
+                <div className="user-chat-profile-pic">
+                <img src='/Icon/avatar-man.svg' width={80} height={80} alt={`Profile picture of ${user.user.fullname}`} className="rounded-circle" />
+                </div>
+                <div className="user-chat-profile-name-phone flex-fill">
+                    <div className="user-chat-profile-fullname fw-bold text-truncate">  
+                        {user.user.fullname}
+                    </div>
+                    <div className="user-chat-profile-phone-number font-monospace">
+                        {user.user.phone}
+                    </div>
+                    <div className="user-chat-profile-username font-monospace cursor-pointer">
+                        {user.user.username}
+                    </div>
+                </div>
+            </div>
 
-
-            {
-                users.map(({fullname, username, phone, id, imgUrl, altImg})=>{
-                    if (userId == id) {
-                        {
-                            return(
-                                <>
-                                    {/*  Profile Pictire  */}
-                                    <div key={id} className="user-chat-profile d-flex flex-row justify-content-evenly ms-4 me-4 p-3">
-                                        <div className="user-chat-profile-pic">
-                                        <img src={imgUrl} width={80} height={80} alt={`Profile picture of ${fullname}`} className="rounded-circle" />
-                                        </div>
-                                        <div className="user-chat-profile-name-phone flex-fill">
-                                            <div className="user-chat-profile-fullname fw-bold text-truncate">  
-                                                {fullname}
-                                            </div>
-                                            <div className="user-chat-profile-phone-number font-monospace">
-                                                {phone}
-                                            </div>
-                                            <div className="user-chat-profile-username font-monospace cursor-pointer">
-                                                {username}
-                                            </div>
-                                        </div>
-                                    </div>
-        
-                                    {/*  User Profile Username  */}
-                                    <div className="user-chat-profile-username-section d-flex flex-row justify-content-around">
-                                        <div className="user-chat-profile-username-icon">
-                                            <i className="bi bi-info-circle fs-4"></i>
-                                        </div>
-                                        <div className="user-chat-profile-username-I text-reset font-monospace cursor-pointer">
-                                            {username}
-                                        </div>
-                                        <div className="user-chat-profile-qrcode">
-                                            <i className="bi bi-qr-code fs-5 cursor-pointer"></i>
-                                        </div>
-                                    </div>
-                                </>
-                            )
-                        }
-                    }else{
-                        ' '
-                    }
-                })
-            }
+            {/*  User Profile Username  */}
+            <div className="user-chat-profile-username-section d-flex flex-row justify-content-around">
+                <div className="user-chat-profile-username-icon">
+                    <i className="bi bi-info-circle fs-4"></i>
+                </div>
+                <div className="user-chat-profile-username-I text-reset font-monospace cursor-pointer">
+                    {user.user.username}
+                </div>
+                <div className="user-chat-profile-qrcode">
+                    <i className="bi bi-qr-code fs-5 cursor-pointer"></i>
+                </div>
+            </div>
 
             {/*  User Profile Media  */}
             <div className="User-profile-Media">

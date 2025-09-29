@@ -1,6 +1,9 @@
 import SettingItem from './SettingItem'
+import { useAuth } from '../AuthContext/AuthContext'
 
 export default function SettingModule({closePopUp, dispatch}){
+
+    const { user } = useAuth()
 
     const settingsList = [
         // contact
@@ -45,9 +48,9 @@ export default function SettingModule({closePopUp, dispatch}){
                     />
                 </div>
                 <div className="user-name-phone">
-                    <div className="user-fullname fw-bolder text-capitalize">Amir Ali Mohammadi</div>
-                    <div className="user-phone-number font-monospace">98933456789</div>
-                    <div className="user-username font-monospace cursor-pointer">@AA_Mohammadi</div>
+                    <div className="user-fullname fw-bolder text-capitalize">{user.user.fullname}</div>
+                    <div className="user-phone-number font-monospace">{user.user.phone}</div>
+                    <div className="user-username font-monospace cursor-pointer">@{user.user.username}</div>
                 </div>
             </div>
             <div className="messanger-settings">

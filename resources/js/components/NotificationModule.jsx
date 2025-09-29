@@ -61,8 +61,8 @@ export default function NotificationModule({closePopUp}){
             </div>
 
             {/*  Call Notification Settings  */}
-            <div class="call-notification-setting">
-                <div class="call-notification-setting-title fw-bold mt-4 text-primary text-capitalize">calls</div>
+            <div className="call-notification-setting">
+                <div className="call-notification-setting-title fw-bold mt-4 text-primary text-capitalize">calls</div>
                 <NotificationSection title="acceptCalls" />
             </div>
 

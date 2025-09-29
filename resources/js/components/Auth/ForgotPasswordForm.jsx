@@ -15,7 +15,7 @@ export default function ForgotPasswordForm({ onSuccess }) {
 
         try {
             await axios.get("/sanctum/csrf-cookie");
-            await axios.post("/forgot-password", { email });
+            await axios.post("http://messenger.local/api/forgot-password", { email });
 
             setLoading(false);
             setMessage("کد تأیید به ایمیل شما ارسال شد.");
@@ -43,7 +43,7 @@ export default function ForgotPasswordForm({ onSuccess }) {
                 disabled={loading}
                 className="w-full py-2 bg-yellow-500 text-white rounded hover:bg-yellow-600 transition"
             >
-                {loading ? "در حال ارسال..." : "ارسال لینک بازنشانی"}
+                {loading ? "در حال ارسال..." : "ارسال کد تایید"}
             </button>
         </form>
     );

@@ -12,18 +12,16 @@ export default function VerifyCodeForm({ email, onSuccess }) {
         setError("");
 
         try {
-            await axios.get("/sanctum/csrf-cookie");
-            const res = await axios.post("/verify-otp", { email, code });
+            await axios.post("http://messenger.local/api/verify-otp", {
+                email,
+                code,
+            });
 
             setLoading(false);
-            if (res.data.success) {
-                onSuccess(); // هدایت به فرم ریست پسورد
-            } else {
-                setError("کد وارد شده اشتباه است.");
-            }
+            if (onSuccess) onSuccess();
         } catch (err) {
             setLoading(false);
-            setError("خطایی رخ داد. دوباره تلاش کنید.");
+            setError(err.response?.data?.message || "کد نامعتبر است");
         }
     };
 
@@ -31,19 +29,20 @@ export default function VerifyCodeForm({ email, onSuccess }) {
         <form onSubmit={handleSubmit} className="space-y-4">
             <input
                 type="text"
-                placeholder="کد تأیید را وارد کنید"
-                className="w-full px-4 py-2 border rounded mb-2 focus:ring focus:ring-purple-400"
+                name="code"
+                placeholder="کد ارسال‌شده"
                 value={code}
                 onChange={(e) => setCode(e.target.value)}
+                className="w-full px-4 py-2 border rounded focus:ring focus:ring-indigo-400 mb-2"
                 required
             />
             {error && <p className="text-red-500 text-sm">{error}</p>}
             <button
                 type="submit"
                 disabled={loading}
-                className="w-full py-2 bg-purple-600 text-white rounded hover:bg-purple-700 transition"
+                className="w-full py-2 bg-indigo-600 text-white rounded hover:bg-indigo-700 transition"
             >
-                {loading ? "در حال بررسی..." : "تأیید کد"}
+                {loading ? "در حال بررسی..." : "تایید کد"}
             </button>
         </form>
     );
