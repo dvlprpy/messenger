@@ -1,40 +1,42 @@
+import axios from "axios";
 import '../css/app.css'
 import '../../public/font_icon/bootstrap-icons.css'
 /* import Image from 'next/image'*/
-import { useReducer, useState, lazy, Suspense } from 'react';
+import { useReducer, useState, lazy, Suspense, useEffect } from 'react';
 import UserProfileModule from './components/UserProfileModule';
 import SettingModule from './components/SettingModule';
 import ContactListModule from './components/ContactListModule';
 import MessagesModule from './components/MessagesModule';
+import { useAuth } from './AuthContext/AuthContext';
 
 /* 
     لیست مخاطبین پیام رسان که قرار است از سرور دریافت شود و ما برای تست از آبجکت به جای آن استفاده کردیم
 */
-const ContactList = [
-    { chatTitle: "User Chat Title... ", chatDescription: "User Description", contactTime: "09:00 am", numberUnreadMessage: '200', contactId: 1 }, 
+// const ContactList = [
+//     { chatTitle: "User Chat Title... ", chatDescription: "User Description", contactTime: "09:00 am", numberUnreadMessage: '200', contactId: 1 }, 
 
-    { chatTitle: "User Chat Title... ", chatDescription: "User Description", contactTime: "10:00 am", numberUnreadMessage: '64', contactId: 2 },
+//     { chatTitle: "User Chat Title... ", chatDescription: "User Description", contactTime: "10:00 am", numberUnreadMessage: '64', contactId: 2 },
     
-    { chatTitle: "User Chat Title... ", chatDescription: "User Description", contactTime: "11:00 am", numberUnreadMessage: '56', contactId: 3 }, 
+//     { chatTitle: "User Chat Title... ", chatDescription: "User Description", contactTime: "11:00 am", numberUnreadMessage: '56', contactId: 3 }, 
 
-    { chatTitle: "User Chat Title... ", chatDescription: "User Description", contactTime: "12:00 am", numberUnreadMessage: '170', contactId: 4 }, 
+//     { chatTitle: "User Chat Title... ", chatDescription: "User Description", contactTime: "12:00 am", numberUnreadMessage: '170', contactId: 4 }, 
 
-    { chatTitle: "User Chat Title... ", chatDescription: "User Description", contactTime: "13:00 pm", numberUnreadMessage: '8', contactId: 5 }, 
+//     { chatTitle: "User Chat Title... ", chatDescription: "User Description", contactTime: "13:00 pm", numberUnreadMessage: '8', contactId: 5 }, 
 
-    { chatTitle: "User Chat Title... ", chatDescription: "User Description", contactTime: "14:00 pm", numberUnreadMessage: '170', contactId: 6 }, 
+//     { chatTitle: "User Chat Title... ", chatDescription: "User Description", contactTime: "14:00 pm", numberUnreadMessage: '170', contactId: 6 }, 
 
-    { chatTitle: "User Chat Title... ", chatDescription: "User Description", contactTime: "15:00 pm", numberUnreadMessage: '6', contactId: 7 }, 
+//     { chatTitle: "User Chat Title... ", chatDescription: "User Description", contactTime: "15:00 pm", numberUnreadMessage: '6', contactId: 7 }, 
 
-    { chatTitle: "User Chat Title... ", chatDescription: "User Description", contactTime: "16:00 pm", numberUnreadMessage: '4', contactId: 8 }, 
+//     { chatTitle: "User Chat Title... ", chatDescription: "User Description", contactTime: "16:00 pm", numberUnreadMessage: '4', contactId: 8 }, 
 
-    { chatTitle: "User Chat Title... ", chatDescription: "User Description", contactTime: "17:00 pm", numberUnreadMessage: '2', contactId: 9 }, 
+//     { chatTitle: "User Chat Title... ", chatDescription: "User Description", contactTime: "17:00 pm", numberUnreadMessage: '2', contactId: 9 }, 
 
-    { chatTitle: "User Chat Title... ", chatDescription: "User Description", contactTime: "21:00 pm", numberUnreadMessage: '12', contactId: 10 }, 
+//     { chatTitle: "User Chat Title... ", chatDescription: "User Description", contactTime: "21:00 pm", numberUnreadMessage: '12', contactId: 10 }, 
 
-    { chatTitle: "User Chat Title... ", chatDescription: "User Description", contactTime: "22:00 pm", numberUnreadMessage: '500', contactId: 11 }, 
+//     { chatTitle: "User Chat Title... ", chatDescription: "User Description", contactTime: "22:00 pm", numberUnreadMessage: '500', contactId: 11 }, 
 
-    { chatTitle: "User Chat Title... ", chatDescription: "User Description", contactTime: "23:00 pm", numberUnreadMessage: '+999', contactId: 12 }, 
-]
+//     { chatTitle: "User Chat Title... ", chatDescription: "User Description", contactTime: "23:00 pm", numberUnreadMessage: '+999', contactId: 12 }, 
+// ]
 
 /*
     متن قسمت پیام با کاربران که باید از سرور دریافت شود
@@ -248,7 +250,27 @@ export default function MainMessanger(){
     const[showDropDown, setShowDropDown] = useState(false)
     const[openUserInfo, setOpenUserInfo] = useState(false)
     const[openSetting, setOpenSetting] = useState(false)
-    const[state, dispatch] = useReducer(reducer, initialState)
+    const[state, dispatch] = useReducer(reducer, initialState);
+    const{user} = useAuth();
+    const [contacts, setContacts] = useState([]);
+    
+
+    
+
+
+     useEffect(() => {
+        if (user?.access_token) {
+        axios.get("http://messenger.local/api/contact", {
+            headers: {
+            Authorization: `Bearer ${user.access_token}`,
+            },
+        })
+        .then(res => setContacts(res.data))
+        .catch(err => console.error(err));
+        }
+    }, [user]);
+
+    // console.log(contacts[0].contact_user.fullname)
 
     const componentsMap = {
         Contact,
@@ -262,7 +284,7 @@ export default function MainMessanger(){
         Speackers_And_Camera,
         Language,
         FAQ
-    };
+    };    
 
     // Find the Active Component
     const ActiveComponent = state.activeSetting ? componentsMap[state.activeSetting] : false;
@@ -343,9 +365,9 @@ export default function MainMessanger(){
                         <div className="bottom-style overflow-y-scroll">
                             
                             {
-                                ContactList.map((item) => {
+                                contacts.map((item) => {
                                     return(
-                                        <ContactListModule {...item} key={item.contactId}/>
+                                        <ContactListModule {...item} key={item.contact_user.username}/>
                                     )
                                 })
                             }
@@ -466,12 +488,16 @@ export default function MainMessanger(){
                     <div className="fixed inset-0 z-50 flex justify-center items-center bg-black/40">
                         <div className="bg-white rounded-xl shadow-lg w-[600px] max-h-[90vh] overflow-y-auto">
                             <Suspense fallback={<div className="text-center p-4">در حال بارگذاری...</div>}>
-                                <ActiveComponent dispatch={dispatch} closePopUp={closePopUp} />
+                                {
+                                    state.activeSetting == 'Contact' ? 
+                                    <ActiveComponent dispatch={dispatch} closePopUp={closePopUp} contactList={contacts} /> : <ActiveComponent dispatch={dispatch} closePopUp={closePopUp} /> 
+                                }
+                                
                             </Suspense>
                         </div>
                     </div>
                 )}
-
+                {/* {console.log(state.activeSetting == 'Contact' ? true : false)} */}
             </div>
         </>
     )

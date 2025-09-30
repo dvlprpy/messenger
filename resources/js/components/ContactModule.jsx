@@ -1,24 +1,26 @@
 import { useState, useMemo } from "react";
 import ContactItem from './ContactItem'
 
-export default function ContactModule({ closePopUp }){
+export default function ContactModule({ closePopUp, contactList }){
 
     const [search, setSearch] = useState("");
 
-    const contacts = [
-        { name: "AliReza Mosavi", lastOnline: "1 Moon Ago", id: 1 },
-        { name: "Mohammad Rezaei", lastOnline: "1 Moon Ago", id: 2 },
-        { name: "Hossein Moradi", lastOnline: "1 Moon Ago", id: 3 },
-        { name: "Ali Mosavi", lastOnline: "1 Moon Ago", id: 4 },
-        { name: "Javad Javadi", lastOnline: "1 Moon Ago", id: 5 },
-        { name: "Mohammad Mohammadi", lastOnline: "1 Moon Ago", id: 6 },
-        { name: "Hossein Hosseini", lastOnline: "1 Moon Ago", id: 7 },
-    ];
+    // اینجا contactList رو به فرمت دلخواه تبدیل می‌کنیم
+    const contacts = useMemo(() => {
+        if (!contactList) return [];
+        return contactList.map((item) => ({
+        id: item.id,
+        name: item.contact_user?.fullname || "Unknown",
+        lastOnline: new Date(item.updated_at).toUTCString(),
+        avatar: item.contact_user?.avatar || null,
+        }));
+    }, [contactList]);
 
+    // فیلتر کردن مخاطب‌ها بر اساس سرچ
     const filteredContacts = useMemo(() => {
-        if (!search.trim()) return contacts; // اگر جستجو خالی است، کل مخاطبین را نمایش بده
-        return contacts.filter(contact =>
-            contact.name.toLowerCase().includes(search.toLowerCase())
+        if (!search.trim()) return contacts;
+        return contacts.filter((contact) =>
+        contact.name.toLowerCase().includes(search.toLowerCase())
         );
     }, [contacts, search]);
 
@@ -26,7 +28,9 @@ export default function ContactModule({ closePopUp }){
         <div className="container-contact m-3 h-100 d-flex flex-column justify-content-between">
             <div className="contact-title p-2 fw-bolder d-flex flex-row justify-content-between">
                 <div className="contact-title-name">Contact</div>
-                <div className="contact-title-icon"><i className="bi bi-person-lines-fill fs-4 cursor-pointer"></i></div>
+                <div className="contact-title-icon">
+                    <i className="bi bi-person-lines-fill fs-4 cursor-pointer"></i>
+                </div>
             </div>
             <div className="contact-search-box">
                 <div className="input-group">
@@ -58,3 +62,4 @@ export default function ContactModule({ closePopUp }){
         </div>
     )
 }
+
