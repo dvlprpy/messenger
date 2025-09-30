@@ -9,34 +9,6 @@ import ContactListModule from './components/ContactListModule';
 import MessagesModule from './components/MessagesModule';
 import { useAuth } from './AuthContext/AuthContext';
 
-/* 
-    لیست مخاطبین پیام رسان که قرار است از سرور دریافت شود و ما برای تست از آبجکت به جای آن استفاده کردیم
-*/
-// const ContactList = [
-//     { chatTitle: "User Chat Title... ", chatDescription: "User Description", contactTime: "09:00 am", numberUnreadMessage: '200', contactId: 1 }, 
-
-//     { chatTitle: "User Chat Title... ", chatDescription: "User Description", contactTime: "10:00 am", numberUnreadMessage: '64', contactId: 2 },
-    
-//     { chatTitle: "User Chat Title... ", chatDescription: "User Description", contactTime: "11:00 am", numberUnreadMessage: '56', contactId: 3 }, 
-
-//     { chatTitle: "User Chat Title... ", chatDescription: "User Description", contactTime: "12:00 am", numberUnreadMessage: '170', contactId: 4 }, 
-
-//     { chatTitle: "User Chat Title... ", chatDescription: "User Description", contactTime: "13:00 pm", numberUnreadMessage: '8', contactId: 5 }, 
-
-//     { chatTitle: "User Chat Title... ", chatDescription: "User Description", contactTime: "14:00 pm", numberUnreadMessage: '170', contactId: 6 }, 
-
-//     { chatTitle: "User Chat Title... ", chatDescription: "User Description", contactTime: "15:00 pm", numberUnreadMessage: '6', contactId: 7 }, 
-
-//     { chatTitle: "User Chat Title... ", chatDescription: "User Description", contactTime: "16:00 pm", numberUnreadMessage: '4', contactId: 8 }, 
-
-//     { chatTitle: "User Chat Title... ", chatDescription: "User Description", contactTime: "17:00 pm", numberUnreadMessage: '2', contactId: 9 }, 
-
-//     { chatTitle: "User Chat Title... ", chatDescription: "User Description", contactTime: "21:00 pm", numberUnreadMessage: '12', contactId: 10 }, 
-
-//     { chatTitle: "User Chat Title... ", chatDescription: "User Description", contactTime: "22:00 pm", numberUnreadMessage: '500', contactId: 11 }, 
-
-//     { chatTitle: "User Chat Title... ", chatDescription: "User Description", contactTime: "23:00 pm", numberUnreadMessage: '+999', contactId: 12 }, 
-// ]
 
 /*
     متن قسمت پیام با کاربران که باید از سرور دریافت شود
@@ -253,25 +225,36 @@ export default function MainMessanger(){
     const[state, dispatch] = useReducer(reducer, initialState);
     const{user} = useAuth();
     const [contacts, setContacts] = useState([]);
+    const [calls, setCalls] = useState([]);
     
-
-    
-
-
+    /* دریافت مخاطبین از API */
      useEffect(() => {
         if (user?.access_token) {
-        axios.get("http://messenger.local/api/contact", {
-            headers: {
-            Authorization: `Bearer ${user.access_token}`,
-            },
-        })
-        .then(res => setContacts(res.data))
-        .catch(err => console.error(err));
+            axios.get("http://messenger.local/api/contact", {
+                headers: {
+                Authorization: `Bearer ${user.access_token}`,
+                },
+            })
+            .then(res => setContacts(res.data))
+            .catch(err => console.error(err));
         }
-    }, [user]);
+    }, [user.access_token]);
 
-    // console.log(contacts[0].contact_user.fullname)
 
+    /* دریافت تماس ها از API */
+     useEffect(() => {
+        if (user?.access_token) {
+            axios.get("http://messenger.local/api/call", {
+                headers: {
+                    Authorization: `Bearer ${user.access_token}`,
+                },
+            })
+            .then(res => setCalls(res.data))
+            .catch(err => console.error(err));
+        }
+    }, [user.access_token]);
+
+    
     const componentsMap = {
         Contact,
         Calls,
@@ -489,15 +472,18 @@ export default function MainMessanger(){
                         <div className="bg-white rounded-xl shadow-lg w-[600px] max-h-[90vh] overflow-y-auto">
                             <Suspense fallback={<div className="text-center p-4">در حال بارگذاری...</div>}>
                                 {
+                                /* calls */
                                     state.activeSetting == 'Contact' ? 
-                                    <ActiveComponent dispatch={dispatch} closePopUp={closePopUp} contactList={contacts} /> : <ActiveComponent dispatch={dispatch} closePopUp={closePopUp} /> 
+                                        <ActiveComponent dispatch={dispatch} closePopUp={closePopUp} contactList={contacts} /> : 
+                                        state.activeSetting == 'Calls' ? 
+                                            <ActiveComponent dispatch={dispatch} closePopUp={closePopUp} callList={calls} /> :  <ActiveComponent dispatch={dispatch} closePopUp={closePopUp} />
                                 }
                                 
                             </Suspense>
                         </div>
                     </div>
                 )}
-                {/* {console.log(state.activeSetting == 'Contact' ? true : false)} */}
+                
             </div>
         </>
     )
