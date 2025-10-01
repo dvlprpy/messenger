@@ -12,7 +12,9 @@ class ChatController extends Controller
      */
     public function index()
     {
-        //
+        $user = auth()->id();
+
+        return response()->json($user);
     }
 
     /**

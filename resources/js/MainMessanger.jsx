@@ -5,7 +5,7 @@ import '../../public/font_icon/bootstrap-icons.css'
 import { useReducer, useState, lazy, Suspense, useEffect } from 'react';
 import UserProfileModule from './components/UserProfileModule';
 import SettingModule from './components/SettingModule';
-import ContactListModule from './components/ContactListModule';
+import ChatListModule from './components/ChatListModule';
 import MessagesModule from './components/MessagesModule';
 import { useAuth } from './AuthContext/AuthContext';
 
@@ -226,6 +226,7 @@ export default function MainMessanger(){
     const{user} = useAuth();
     const [contacts, setContacts] = useState([]);
     const [calls, setCalls] = useState([]);
+    const [chats, setChats] = useState([]);
     
     /* دریافت مخاطبین از API */
      useEffect(() => {
@@ -253,6 +254,21 @@ export default function MainMessanger(){
         }
     }, [user.access_token]);
     
+    /* دریافت لیست چت ها از API */
+    useEffect(() => {
+        if (user?.access_token) {
+            axios.get('http://messenger.local/api/chat', {
+                headers: {
+                    Authorization: `Bearer ${user.access_token}`,
+                },
+            })
+            .then(res => setChats(res.data.data))
+            .catch(err => console.error(err))
+        }
+    }, [user.access_token])
+
+    console.log(chats);
+
     const componentsMap = {
         Contact,
         Calls,
@@ -348,7 +364,7 @@ export default function MainMessanger(){
                             {
                                 contacts.map((item) => {
                                     return(
-                                        <ContactListModule {...item} key={item.contact_user_info.user_username}/>
+                                        <ChatListModule {...item} key={item.contact_user_info.user_username}/>
                                     )
                                 })
                             }

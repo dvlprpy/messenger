@@ -19,7 +19,9 @@ Route::post('/forgot-password', [AuthController::class, 'forgotPassword']);
 Route::post('/verify-otp', [AuthController::class, 'verifyOtp']);
 Route::post('/reset-password', [AuthController::class, 'resetPassword']);
 
+
 Route::middleware('auth:sanctum')->get('/contact', [UserController::class, 'contactlist']);
 
-
 Route::middleware('auth:sanctum')->get('/call', [CallController::class, 'index']);
+
+Route::middleware('auth:sanctum')->get()
