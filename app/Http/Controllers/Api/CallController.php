@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\CallResource;
 use App\Models\Call;
 use Illuminate\Http\Request;
 
@@ -14,7 +15,7 @@ class CallController extends Controller
     public function index(Request $request)
     {
         $calls = Call::with('receiver')->where('caller_id', auth()->id())->get();
-        return response()->json($calls);
+        return CallResource::collection($calls);
     }
 
     /**

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\UserAuthResource;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\PasswordOtp;
@@ -29,7 +30,7 @@ class AuthController extends Controller
             'password' => $data['password'],
         ]);
 
-        return response()->json(['message' => 'ثبت‌نام موفق', 'user' => $user], 201);
+        return response()->json(['message' => 'کاربر گرامی ثبت نام شما با موفقیت انجام شد، از تصمیم شما برای عضویت در سرویس ما سپاسگذاریم.', 'user' => new UserAuthResource($user)], 201);
     }
 
     // --- Login ---
@@ -54,7 +55,7 @@ class AuthController extends Controller
         return response()->json([
             'access_token' => $token,
             'token_type' => 'Bearer',
-            'user' => $user,
+            'user' => new UserAuthResource($user),
         ]);
     }
 

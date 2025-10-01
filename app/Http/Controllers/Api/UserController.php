@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Models\Contact;
 use Illuminate\Http\Request;
+use \App\Http\Resources\ContactResource;
 
 class UserController extends Controller
 {
@@ -56,8 +57,8 @@ class UserController extends Controller
         $contacts = Contact::with('contactUser:id,fullname,email,username,phone,avatar')
             ->where('user_id', auth()->id())
             ->get();
-
-        return response()->json($contacts);
+        // dd($contacts);
+        return ContactResource::collection($contacts);
     }
 
     /**

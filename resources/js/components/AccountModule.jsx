@@ -10,10 +10,10 @@ function AccountModule({ closePopUp }) {
   }
   // داده‌های کاربر
   const userData = {
-    name: user.user.fullname,
-    phone: user.user.phone,
-    email: user.user.email,
-    username: "@" + user.user.username,
+    name: user.user.user_name,
+    phone: user.user.user_phone,
+    email: user.user.user_email,
+    username: "@" + user.user.user_username,
     birthDate: user.user.birthDate || "", // میتونی توی ثبت‌نام بذاری
     isOnline: true,
   };

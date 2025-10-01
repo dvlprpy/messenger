@@ -41,16 +41,16 @@ export default function SettingModule({closePopUp, dispatch}){
             <div className="user-section d-flex flex-row justify-content-evenly p-3">
                 <div className="user-profile align-items-center">
                     <img 
-                        src="/Icon/avatar.svg" 
+                        src={user.user.user_avatar} 
                         width={50} 
                         height={50} 
                         alt="avatar svg icon" 
                     />
                 </div>
                 <div className="user-name-phone">
-                    <div className="user-fullname fw-bolder text-capitalize">{user.user.fullname}</div>
-                    <div className="user-phone-number font-monospace">{user.user.phone}</div>
-                    <div className="user-username font-monospace cursor-pointer">@{user.user.username}</div>
+                    <div className="user-fullname fw-bolder text-capitalize">{user.user.user_name}</div>
+                    <div className="user-phone-number font-monospace">{user.user.user_phone}</div>
+                    <div className="user-username font-monospace cursor-pointer">@{user.user.user_username}</div>
                 </div>
             </div>
             <div className="messanger-settings">

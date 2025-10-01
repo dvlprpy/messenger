@@ -1,5 +1,5 @@
 
-export default function CallItem({ icon, fullName, callType, date, alt, index }){
+export default function CallItem({ icon, fullName, callType, date, alt, index, duration }){
 
     let callsType = callType.toLowerCase();
 
@@ -10,7 +10,12 @@ export default function CallItem({ icon, fullName, callType, date, alt, index })
             </div>
             <div className="ms-2 Call_Description d-flex flex-column">
                 <span className='font-bold'>{fullName}</span>
-                <span className={`text-xs  ${ callsType === 'incoming' ? 'badge text-bg-primary' :  callsType === 'outgoing' ? 'badge text-bg-success' : callsType === 'missed' ? 'badge text-bg-danger' : '' } capitalize w-fit text-sm`}>{callsType}</span>
+                <div className="">
+                    <span className={`text-xs  ${ callsType === 'incoming' ? 'badge text-bg-primary' :  callsType === 'outgoing' ? 'badge text-bg-success' : callsType === 'missed' ? 'badge text-bg-danger' : '' } capitalize w-fit text-sm`}>{callsType}</span>
+                    <span className="badge text-bg-warning ms-1 me-1">
+                        <span>{`مدت زمان تماس: ${Math.floor(duration/60)} دقیقه و ${Math.floor(duration%60)} ثانیه`}</span>
+                    </span>
+                </div>
                 <span className='font-mono text-sm'>{date}</span>
             </div>
         </li>

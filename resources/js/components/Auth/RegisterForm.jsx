@@ -19,6 +19,7 @@ export default function RegisterForm({ onSuccess }) {
       const res = await axios.post("http://messenger.local/api/register", form);
 
       Swal.fire({ title: res.data.message, icon: "success", confirmButtonText: "باشه!" });
+      
       onSuccess();
     } catch (err) {
       setError("خطا در ثبت نام. لطفاً اطلاعات را بررسی کنید.");

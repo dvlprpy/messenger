@@ -9,10 +9,10 @@ export default function ContactModule({ closePopUp, contactList }){
     const contacts = useMemo(() => {
         if (!contactList) return [];
         return contactList.map((item) => ({
-        id: item.id,
-        name: item.contact_user?.fullname || "Unknown",
-        lastOnline: new Date(item.updated_at).toUTCString(),
-        avatar: item.contact_user?.avatar || null,
+        id: item.contact_id,
+        name: item.contact_user_info?.user_name || "Unknown",
+        lastOnline: new Date(item.contact_joined_date).toUTCString(),
+        avatar: item.contact_user_info?.user_avatar || null,
         }));
     }, [contactList]);
 

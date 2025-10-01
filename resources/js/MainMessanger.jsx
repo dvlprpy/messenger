@@ -235,12 +235,11 @@ export default function MainMessanger(){
                 Authorization: `Bearer ${user.access_token}`,
                 },
             })
-            .then(res => setContacts(res.data))
+            .then(res => setContacts(res.data.data))
             .catch(err => console.error(err));
         }
     }, [user.access_token]);
-
-
+    
     /* دریافت تماس ها از API */
      useEffect(() => {
         if (user?.access_token) {
@@ -249,11 +248,10 @@ export default function MainMessanger(){
                     Authorization: `Bearer ${user.access_token}`,
                 },
             })
-            .then(res => setCalls(res.data))
+            .then(res => setCalls(res.data.data))
             .catch(err => console.error(err));
         }
     }, [user.access_token]);
-
     
     const componentsMap = {
         Contact,
@@ -350,7 +348,7 @@ export default function MainMessanger(){
                             {
                                 contacts.map((item) => {
                                     return(
-                                        <ContactListModule {...item} key={item.contact_user.username}/>
+                                        <ContactListModule {...item} key={item.contact_user_info.user_username}/>
                                     )
                                 })
                             }

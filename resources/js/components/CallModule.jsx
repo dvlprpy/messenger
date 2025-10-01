@@ -14,13 +14,17 @@ const Calls = ({closePopUp, callList}) => {
                         {
                             callList.map((item) => 
                                 <CallItem  
-                                    key={item.id}
+                                    key={item.call_id}
+                                    /* 
+                                    چون آواتار کاربر در سرور با داده تستی پر شده فعلا ما باید آواتار را تنظیم کنیم به صورت دستی 
+                                    */
                                     icon={'/Icon/avatar.svg'} 
-                                    fullName={item.receiver.fullname}
+                                    fullName={item.call_receiver_info.user_name}
                                     callType={item.call_type}
-                                    date={new Date(item.updated_at).toUTCString()}
+                                    date={new Date(item.call_time).toUTCString()}
                                     alt={'Avatar SVG Icon'}
-                                    index={item.id}
+                                    index={item.call_id}
+                                    duration={item.call_duration}
                                     />
                             )
                         }
