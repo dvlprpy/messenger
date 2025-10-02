@@ -2,14 +2,22 @@
 
 use App\Http\Controllers\Api\Auth\AuthController;
 use App\Http\Controllers\Api\CallController;
+use App\Http\Controllers\Api\ChatController;
 use App\Http\Controllers\Api\UserController;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
-// Route::get('/user', function (Request $request) {
-//     return $request->user();
-// })->middleware('auth:sanctum');
 
+/*
+|--------------------------------------------------------------------------
+| API Routes
+|--------------------------------------------------------------------------
+|
+| اینجا تمام روت‌های API پروژه تعریف میشن.
+| همه روت‌هایی که نیاز به احراز هویت دارن با middleware 'auth:sanctum' پوشش داده شدن.
+|
+*/
+
+// Auth Routes
 
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
@@ -20,8 +28,10 @@ Route::post('/verify-otp', [AuthController::class, 'verifyOtp']);
 Route::post('/reset-password', [AuthController::class, 'resetPassword']);
 
 
-Route::middleware('auth:sanctum')->get('/contact', [UserController::class, 'contactlist']);
 
-Route::middleware('auth:sanctum')->get('/call', [CallController::class, 'index']);
-
-Route::middleware('auth:sanctum')->get()
+// Protected Routes (نیاز به احراز هویت)
+Route::middleware('auth:sanctum')->group(function () {
+    Route::get('/contact', [UserController::class, 'contactlist']);
+    Route::get('/call', [CallController::class, 'index']);
+    Route::get('/chat', [ChatController::class, 'index']);
+});

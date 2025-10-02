@@ -267,7 +267,7 @@ export default function MainMessanger(){
         }
     }, [user.access_token])
 
-    console.log(chats);
+    
 
     const componentsMap = {
         Contact,
@@ -362,9 +362,13 @@ export default function MainMessanger(){
                         <div className="bottom-style overflow-y-scroll">
                             
                             {
-                                contacts.map((item) => {
+                                // chat_users_profile, last_message
+                                chats.map((item, index) => {
                                     return(
-                                        <ChatListModule {...item} key={item.contact_user_info.user_username}/>
+                                        <ChatListModule 
+                                            chat_users_profile={item.chat_users_profile} 
+                                            last_message={item.last_message} 
+                                            key={index}/>
                                     )
                                 })
                             }

@@ -1,0 +1,4 @@
+.chat-info:hover {
+  background-color: #bdc3c7; /* رنگ ملایم */
+  transition: background-color 0.2s ease;
+}

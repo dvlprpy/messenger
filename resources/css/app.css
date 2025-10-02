@@ -11,9 +11,12 @@
         'Segoe UI Symbol', 'Noto Color Emoji';
 }
 
+/* CSS React Module Style */
+@import './SettingModule.module.css';
+@import './ContactListModule.css';
+
 
 /* global css */
-@import './SettingModule.module.css';
 
 :root {
   --background: #ffffff;
