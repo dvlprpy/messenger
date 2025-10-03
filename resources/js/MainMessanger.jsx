@@ -1,7 +1,6 @@
 import axios from "axios";
 import '../css/app.css'
 import '../../public/font_icon/bootstrap-icons.css'
-/* import Image from 'next/image'*/
 import { useReducer, useState, lazy, Suspense, useEffect } from 'react';
 import UserProfileModule from './components/UserProfileModule';
 import SettingModule from './components/SettingModule';
@@ -101,9 +100,7 @@ const reducer = (state, action) => {
 
 function showContactChatList(){}
 
-/*
-    speechSynthesisHandler is a function that used for convert Text to Voice with JavaScript SpeechSynthesis WebAPI => 'new SpeechSynthesisUtterance()
-*/
+
 function speechSynthesisHandler(e){
     if (e.target.classList.contains('bi-play-circle-fill')) {
 

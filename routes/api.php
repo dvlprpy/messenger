@@ -3,6 +3,7 @@
 use App\Http\Controllers\Api\Auth\AuthController;
 use App\Http\Controllers\Api\CallController;
 use App\Http\Controllers\Api\ChatController;
+use App\Http\Controllers\Api\ContactController;
 use App\Http\Controllers\Api\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -31,7 +32,9 @@ Route::post('/reset-password', [AuthController::class, 'resetPassword']);
 
 // Protected Routes (نیاز به احراز هویت)
 Route::middleware('auth:sanctum')->group(function () {
-    Route::get('/contact', [UserController::class, 'contactlist']);
+    Route::get('/contact', [ContactController::class, 'index']);
+    Route::get('/search', [ContactController::class, 'search']);
+    Route::post('/contact', [ContactController::class, 'store']);
     Route::get('/call', [CallController::class, 'index']);
     Route::get('/chat', [ChatController::class, 'index']);
 });

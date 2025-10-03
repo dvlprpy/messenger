@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Contact;
 use Illuminate\Http\Request;
 use \App\Http\Resources\ContactResource;
+use App\Models\User;
 
 class UserController extends Controller
 {
@@ -47,18 +48,6 @@ class UserController extends Controller
     public function destroy(string $id)
     {
         //
-    }
-
-    /**
-     * Display a listing of user contacts.
-     */
-    public function contactlist()
-    {
-        $contacts = Contact::with('contactUser:id,fullname,email,username,phone,avatar')
-            ->where('user_id', auth()->id())
-            ->get();
-        // dd($contacts);
-        return ContactResource::collection($contacts);
     }
 
     /**

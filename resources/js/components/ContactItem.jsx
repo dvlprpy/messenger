@@ -1,8 +1,8 @@
 import { memo } from "react";
 
-const ContactItem = memo(({ name, lastOnline }) => {
+const ContactItem = memo(({ name, lastOnline, contactId }) => {
     return (
-        <div className="contact-list d-flex align-items-center p-2 border-bottom">
+        <div data-contactid={contactId} className="contact-list d-flex align-items-center p-2 border-bottom">
             <i className="bi bi-person-circle fs-1 cursor-pointer me-3"></i>
             <div>
                 <div className="text-capitalize fw-bold">{name}</div>
