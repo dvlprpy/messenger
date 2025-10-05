@@ -7,6 +7,8 @@ import SettingModule from './components/SettingModule';
 import ChatListModule from './components/ChatListModule';
 import MessagesModule from './components/MessagesModule';
 import { useAuth } from './AuthContext/AuthContext';
+import ContactModule from "./components/ContactModule";
+import EmptyChatState from "./components/EmptyChatState";
 
 
 /*
@@ -230,7 +232,7 @@ export default function MainMessanger(){
         if (user?.access_token) {
             axios.get("http://messenger.local/api/contact", {
                 headers: {
-                Authorization: `Bearer ${user.access_token}`,
+                    Authorization: `Bearer ${user.access_token}`,
                 },
             })
             .then(res => setContacts(res.data.data))
@@ -360,14 +362,15 @@ export default function MainMessanger(){
                             
                             {
                                 // chat_users_profile, last_message
-                                chats.map((item, index) => {
-                                    return(
-                                        <ChatListModule 
-                                            chat_users_profile={item.chat_users_profile} 
-                                            last_message={item.last_message} 
-                                            key={index}/>
-                                    )
-                                })
+                                chats.length > 0 ? 
+                                    chats.map((item, index) => {
+                                        return(
+                                            <ChatListModule 
+                                                chat_users_profile={item.chat_users_profile} 
+                                                last_message={item.last_message} 
+                                                key={index}/>
+                                        )
+                                    }) : <ChatListModule />
                             }
 
                         </div>
@@ -493,7 +496,6 @@ export default function MainMessanger(){
                                         state.activeSetting == 'Calls' ? 
                                             <ActiveComponent dispatch={dispatch} closePopUp={closePopUp} callList={calls} /> :  <ActiveComponent dispatch={dispatch} closePopUp={closePopUp} />
                                 }
-                                
                             </Suspense>
                         </div>
                     </div>

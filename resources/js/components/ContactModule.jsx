@@ -110,7 +110,10 @@ export default function ContactModule({ closePopUp, contactList }) {
   // اضافه کردن کاربر به لیست مخاطبین
   const insertUserToContact = () => {
     if (!userResult) return;
-
+    console.log(
+      {name: userResult.name,phone: userResult.phone,}
+      );
+    
     axios
       .post(
         "http://messenger.local/api/contact",
@@ -187,7 +190,7 @@ export default function ContactModule({ closePopUp, contactList }) {
       <div className="container-contact-list h-75 overflow-auto">
         {filteredContacts.length === 0 ? (
           <div className="text-center text-danger mt-3 fw-bold">
-            Contact Not Found
+            هیچ اطلاعاتی برای نمایش وجود ندارد.
           </div>
         ) : (
           filteredContacts.map((contact) => (

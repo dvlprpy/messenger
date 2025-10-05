@@ -20,6 +20,7 @@ class AuthController extends Controller
             'fullname' => 'required|string|max:50',
             'username' => 'required|string|max:50|unique:users',
             'email' => 'required|email|unique:users',
+            'phone' => 'required|string|unique:users',
             'password' => 'required|string|min:6',
         ]);
 
@@ -27,6 +28,7 @@ class AuthController extends Controller
             'fullname' => $data['fullname'],
             'username' => $data['username'],
             'email' => $data['email'],
+            'phone' => $data['phone'],
             'password' => $data['password'],
         ]);
 

@@ -87,6 +87,7 @@ class ContactController extends Controller
         $contact = Contact::create([
             'user_id' => $user_id,
             'contact_user_id' => $targetUser->id,
+            'contact_name' => $validated['name'],
         ]);
 
         $contact->user = $targetUser;

@@ -1,7 +1,7 @@
 import CallItem from './CallItem';
 
 const Calls = ({closePopUp, callList}) => {    
-
+    
     return(
         <>
             <div className="Container_Call_Component p-3">
@@ -12,21 +12,21 @@ const Calls = ({closePopUp, callList}) => {
                 <div className="Call_Body">
                     <ul className="list-group list-group-flush">
                         {
-                            callList.map((item) => 
-                                <CallItem  
-                                    key={item.call_id}
-                                    /* 
-                                    چون آواتار کاربر در سرور با داده تستی پر شده فعلا ما باید آواتار را تنظیم کنیم به صورت دستی 
-                                    */
-                                    icon={'/Icon/avatar.svg'} 
-                                    fullName={item.call_receiver_info.user_name}
-                                    callType={item.call_type}
-                                    date={new Date(item.call_time).toUTCString()}
-                                    alt={'Avatar SVG Icon'}
-                                    index={item.call_id}
-                                    duration={item.call_duration}
-                                    />
-                            )
+                            callList.length > 0 ? 
+                                callList.map((item) => 
+                                    <CallItem  
+                                        key={item.call_id}
+                                        icon={'/Icon/avatar.svg'} 
+                                        fullName={item.call_receiver_info.user_name}
+                                        callType={item.call_type}
+                                        date={new Date(item.call_time).toUTCString()}
+                                        alt={'Avatar SVG Icon'}
+                                        index={item.call_id}
+                                        duration={item.call_duration}
+                                        />
+                                ) : <p className='text-center text-zinc-500 text-lg'>
+                                هیچ اطلاعاتی برای نمایش وجود ندارد
+                                </p>
                         }
                     </ul>
                 </div>

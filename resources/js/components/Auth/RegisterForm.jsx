@@ -3,7 +3,7 @@ import axios from "axios";
 import Swal from "sweetalert2";
 
 export default function RegisterForm({ onSuccess }) {
-  const [form, setForm] = useState({ fullname: "", username: "", email: "", password: "" });
+  const [form, setForm] = useState({ fullname: "", username: "", email: "", password: "", phone: "" });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
@@ -30,6 +30,7 @@ export default function RegisterForm({ onSuccess }) {
 
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
+      {/* fullname */}
       <input
         type="text"
         name="fullname"
@@ -39,6 +40,7 @@ export default function RegisterForm({ onSuccess }) {
         onChange={handleChange}
         required
       />
+      {/* username */}
       <input
         type="text"
         name="username"
@@ -48,6 +50,7 @@ export default function RegisterForm({ onSuccess }) {
         onChange={handleChange}
         required
       />
+      {/* email */}
       <input
         type="email"
         name="email"
@@ -56,7 +59,18 @@ export default function RegisterForm({ onSuccess }) {
         value={form.email}
         onChange={handleChange}
         required
-      />
+      />  
+      {/* phone */}
+      <input
+        type="text"
+        name="phone"
+        placeholder="شماره تلفن همراه"
+        className="w-full px-4 py-2 border rounded mb-2 focus:ring focus:ring-green-400"
+        value={form.phone}
+        onChange={handleChange}
+        required
+      />  
+      {/* password */}
       <input
         type="password"
         name="password"
