@@ -1,5 +1,5 @@
 import SettingItem from './SettingItem'
-import { useAuth } from '../AuthContext/AuthContext'
+import { useAuth } from '../../AuthContext/AuthContext'
 
 export default function SettingModule({closePopUp, dispatch}){
 

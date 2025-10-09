@@ -1,4 +1,4 @@
-import { useAuth } from "../AuthContext/AuthContext";
+import { useAuth } from "../../AuthContext/AuthContext";
 export default function UserProfileModule({closePopUp}){
 
     const { user } = useAuth(); 

@@ -1,7 +1,7 @@
 import { useState, useMemo, useEffect } from "react";
 import ContactItem from "./ContactItem";
 import axios from "axios";
-import { useAuth } from "../AuthContext/AuthContext";
+import { useAuth } from "../../../AuthContext/AuthContext";
 import Swal from "sweetalert2";
 
 export default function ContactModule({ closePopUp, contactList }) {

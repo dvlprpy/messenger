@@ -1,4 +1,4 @@
-import DeviceSelector from './DeviceSelector'
+import DeviceSelector from './Device/DeviceSelector'
 export default function SpeakerModule({ closePopUp }){
     return(
         <>

@@ -1,5 +1,5 @@
 import { useMemo, useState } from "react";
-import { useAuth } from "../AuthContext/AuthContext";
+import { useAuth } from "../../AuthContext/AuthContext";
 import axios from "axios";
 
 function AccountModule({ closePopUp }) {

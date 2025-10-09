@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import '../../css/EmptyChatStateModule.css';
-import ContactModule from "./ContactModule";
-import { useAuth } from "../AuthContext/AuthContext";
+import '../../../../css/EmptyChatStateModule.css';
+import ContactModule from "../Contact/ContactModule";
+import { useAuth } from "../../../AuthContext/AuthContext";
 import axios from "axios";
 
 

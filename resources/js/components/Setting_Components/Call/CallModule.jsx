@@ -1,5 +1,5 @@
 import CallItem from './CallItem';
-import EmptyCallState from './EmptyCallState';
+import EmptyCallState from '../Empty_setting/EmptyCallState';
 
 const Calls = ({closePopUp, callList}) => {    
     

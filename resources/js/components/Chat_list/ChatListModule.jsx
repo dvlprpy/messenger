@@ -1,6 +1,6 @@
 import React from 'react';
-import '../../css/ContactListModule.css';
-import EmptyChatState from './EmptyChatState';
+import '../../../css/ContactListModule.css';
+import EmptyChatState from '../Setting_Components/Empty_setting/EmptyChatState';
 
 export default function ContactListModule({ chat_users_profile = [], last_message = [], onChatSelect }) {  
 

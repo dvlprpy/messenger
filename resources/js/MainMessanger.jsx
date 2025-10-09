@@ -2,10 +2,10 @@ import axios from "axios";
 import '../css/app.css'
 import '../../public/font_icon/bootstrap-icons.css'
 import { useReducer, useState, lazy, Suspense, useEffect } from 'react';
-import UserProfileModule from './components/UserProfileModule';
-import SettingModule from './components/SettingModule';
-import ChatListModule from './components/ChatListModule';
-import MessagesModule from './components/MessagesModule';
+import UserProfileModule from './components/Setting_Components/UserProfileModule';
+import SettingModule from './components/Setting_Components/SettingModule';
+import ChatListModule from './components/Chat_list/ChatListModule';
+import MessagesModule from './components/Chat_list/MessagesModule';
 import { useAuth } from './AuthContext/AuthContext';
 
 
@@ -57,17 +57,17 @@ const MessageBox = [
 
 
 // Dynamic imports (React.lazy)
-const Contact = lazy(() => import('./components/ContactModule'));
-const Calls = lazy(() => import('./components/CallModule'));
-const Account = lazy(() => import('./components/AccountModule'));
-const Notification_And_Sound = lazy(() => import('./components/NotificationModule'));
-const Privacy_And_Security = lazy(() => import('./components/PrivacyModule'));
-const Chat_Setting = lazy(() => import('./components/ChatSettingModule'));
-const Folders = lazy(() => import('./components/FolderSettingModule'));
-const Advanced = lazy(() => import('./components/AdvancedSettingModule'));
-const Speackers_And_Camera = lazy(() => import('./components/SpeakerModule'));
-const Language = lazy(() => import('./components/LanguageModule'));
-const FAQ = lazy(() => import('./components/FaqModule'));
+const Contact = lazy(() => import('./components/Setting_Components/Contact/ContactModule'));
+const Calls = lazy(() => import('./components/Setting_Components/Call/CallModule'));
+const Account = lazy(() => import('./components/Setting_Components/AccountModule'));
+const Notification_And_Sound = lazy(() => import('./components/Setting_Components/Notification/NotificationModule'));
+const Privacy_And_Security = lazy(() => import('./components/Setting_Components/Privacy/PrivacyModule'));
+const Chat_Setting = lazy(() => import('./components/Chat_list/ChatSettingModule'));
+const Folders = lazy(() => import('./components/Setting_Components/FolderSettingModule'));
+const Advanced = lazy(() => import('./components/Setting_Components/AdvancedSettingModule'));
+const Speackers_And_Camera = lazy(() => import('./components/Setting_Components/SpeakerModule'));
+const Language = lazy(() => import('./components/Setting_Components/LanguageModule'));
+const FAQ = lazy(() => import('./components/Setting_Components/FaqModule'));
 
 
 // Initial State

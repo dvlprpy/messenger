@@ -95,7 +95,7 @@ export default function PrivacyItem({ section, title, checkBoxState, icon }) {
     }
   
     return (
-      <div className={`${parent1} cursor-pointer`}>
+      <div className={`${parent1}`}>
         <div className={`${parent2} d-flex justify-content-between align-items-center ms-2 me-2`}>
           <div className={`${parent3} d-flex flex-row justify-content-around align-items-center`}>
             <div className={`${child1} ms-2`}>
