@@ -1,4 +1,5 @@
 import CallItem from './CallItem';
+import EmptyCallState from './EmptyCallState';
 
 const Calls = ({closePopUp, callList}) => {    
     
@@ -24,14 +25,13 @@ const Calls = ({closePopUp, callList}) => {
                                         index={item.call_id}
                                         duration={item.call_duration}
                                         />
-                                ) : <p className='text-center text-zinc-500 text-lg'>
-                                هیچ اطلاعاتی برای نمایش وجود ندارد
-                                </p>
+                                ) : <EmptyCallState />
                         }
                     </ul>
                 </div>
-                <div className="Call_Footer absolute right-[10px] bottom-0">
-                    <i className="bi bi-telephone-fill text-lg p-3 cursor-pointer bg-sky-500 rounded-full text-white"></i>
+                <div className="Call_Footer d-flex flex-row justify-content-center align-items-center">
+                    <i onClick={() => console.log('Start New Voice Call') } className="bi bi-telephone-fill text-xs p-3 cursor-pointer bg-sky-500 rounded-full text-white"></i>
+                    <span className='capitalize ps-2 text-primary'>Start new call</span>
                 </div>
             </div>
         </>

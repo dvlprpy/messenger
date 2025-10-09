@@ -21,7 +21,7 @@ export default function SpeakerModule({ closePopUp }){
                     </div>
 
                     {/*  Output Device  */}
-                    <DeviceSelector title="output device" />
+                    <DeviceSelector category={'speaker'}/>
                 </div>
 
 
@@ -32,7 +32,7 @@ export default function SpeakerModule({ closePopUp }){
                         <div className="microphone-title text-capitalize text-primary fw-bold">microphone</div>
                     </div>
                     {/*  Input Device  */}
-                    <DeviceSelector title="microphone input device" />
+                    <DeviceSelector category={'microphone'}/>
                 </div>
 
 
@@ -45,7 +45,7 @@ export default function SpeakerModule({ closePopUp }){
                     </div>
 
                     {/*  Input Device  */}
-                    <DeviceSelector title="camera input device" />
+                    <DeviceSelector category={'camera'}/>
                 </div>
             </div>
         </>

@@ -7,8 +7,7 @@ import SettingModule from './components/SettingModule';
 import ChatListModule from './components/ChatListModule';
 import MessagesModule from './components/MessagesModule';
 import { useAuth } from './AuthContext/AuthContext';
-import ContactModule from "./components/ContactModule";
-import EmptyChatState from "./components/EmptyChatState";
+
 
 
 /*
@@ -289,7 +288,7 @@ export default function MainMessanger(){
     const closePopUp = () => {
         dispatch({ type: 'CLOSE' })
     }
-
+    
     
     return (
         <>
@@ -362,6 +361,8 @@ export default function MainMessanger(){
                             
                             {
                                 // chat_users_profile, last_message
+                                
+                                
                                 chats.length > 0 ? 
                                     chats.map((item, index) => {
                                         return(
@@ -371,6 +372,8 @@ export default function MainMessanger(){
                                                 key={index}/>
                                         )
                                     }) : <ChatListModule />
+
+                                
                             }
 
                         </div>

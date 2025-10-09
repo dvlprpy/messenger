@@ -332,9 +332,8 @@ body {
 }
 
 .Call_Footer{
-    height: 10%;
-    /* padding-right: 5px;
-    padding-bottom: 15px; */
+    height: fit-content;
+    
 }
 
 .user-chat-message-title {

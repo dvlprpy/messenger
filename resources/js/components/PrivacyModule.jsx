@@ -95,7 +95,7 @@ export default function PrivacyModule({closePopUp}){
                     {/*  Date of Birth  */}
                     <PrivacyItem 
                         section={"date-of-birth"}
-                        title={'Date of birth'} 
+                        title={'Date of birth in private chate'} 
                         checkBoxState={'everybody'} 
                         icon={'calendar-date'} 
                     />
@@ -104,7 +104,7 @@ export default function PrivacyModule({closePopUp}){
                     {/*  Groups & Channels  */}
                     <PrivacyItem 
                         section={"groups-and-channels"}
-                        title={'Date of birth'} 
+                        title={'Date of birth in group and channel'} 
                         checkBoxState={'everybody'} 
                         icon={'people'} 
                     />
@@ -121,7 +121,7 @@ export default function PrivacyModule({closePopUp}){
                     {/*  Account Self Destructions  */}
                     <PrivacyItem 
                         section={"account-self-destruction"}
-                        title={'Date of birth'} 
+                        title={'Date of deleted account'} 
                         checkBoxState={'if away for...'} 
                         icon={'trash'} 
                     />
