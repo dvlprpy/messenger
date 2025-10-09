@@ -37,4 +37,5 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/contact', [ContactController::class, 'store']);
     Route::get('/call', [CallController::class, 'index']);
     Route::get('/chat', [ChatController::class, 'index']);
+    Route::post('/birthday', [UserController::class, 'store']);
 });

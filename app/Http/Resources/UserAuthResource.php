@@ -19,6 +19,7 @@ class UserAuthResource extends JsonResource
             'user_name'     => $this->fullname,   // تغییر نام ستون
             'user_username' => $this->username,
             'user_phone'    => $this->phone ? $this->phone : '09121111111',
+            'birthDate'     => $this->birthday,
             'user_email'    => $this->email,
             'user_avatar'   => $this->avatar ? $this->avatar : '/Icon/avatar.svg',
             'user_joined_date'   => $this->created_at, // تاریخ عضویت

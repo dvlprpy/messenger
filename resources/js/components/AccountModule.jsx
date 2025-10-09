@@ -1,15 +1,17 @@
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import { useAuth } from "../AuthContext/AuthContext";
+import axios from "axios";
 
 function AccountModule({ closePopUp }) {
   const { user } = useAuth(); // گرفتن اطلاعات کاربر از Context
+  const [showAccountModal, setShowAccountModal] = useState(false)
 
   // اگه کاربر لاگین نکرده باشه
   if (!user) {
     return <div className="p-4 text-center text-red-500">هیچ کاربری وارد نشده است</div>;
   }
   // داده‌های کاربر
-  const userData = {
+  const userinformation = {
     name: user.user.user_name,
     phone: user.user.user_phone,
     email: user.user.user_email,
@@ -17,6 +19,10 @@ function AccountModule({ closePopUp }) {
     birthDate: user.user.birthDate || "", // میتونی توی ثبت‌نام بذاری
     isOnline: true,
   };
+
+  // قرار دادن اطلاعات کاربر در state برای نمایش لحظه ای
+  const [userData, setUserData] = useState({ ...userinformation })
+  const [userBirthday, setUserBirthday] = useState(userData.birthDate || '');
 
   // چک کردن وجود تابع closePopUp
   const handleClosePopup = () => {
@@ -38,6 +44,31 @@ function AccountModule({ closePopUp }) {
       </>
     );
   }, [userData]);
+
+
+  const handleInputBirthdayChange = (e) => {
+    setUserBirthday(e.target.value)
+  }
+
+  const handlebirthdayForm = async(e) => {
+    e.preventDefault()
+    try {
+      const response = await axios.post('http://messenger.local/api/birthday', {
+        birthday: userBirthday
+      }, {
+        headers: {
+          Authorization: `Bearer ${user.access_token}`
+        }
+      })
+      setUserData((prev) => ({
+        ...prev, birthDate: response.data.data.birthDate
+      }));
+      setShowAccountModal(false)
+    } catch (error) {
+      console.error('Try & Catch Error: ', error)
+    }
+  }
+
 
   return (
     <div className="container-account d-flex flex-column m-3">
@@ -85,11 +116,39 @@ function AccountModule({ closePopUp }) {
           <div className="container-account-date-birth-title">
             <i className="bi bi-cake2 fs-2"></i> Date Of Birth
           </div>
-          <div className="container-account-date-birth-right text-info">
+          <div className="container-account-date-birth-right text-info" onClick={() => setShowAccountModal(true)}>
             {userData.birthDate ? userData.birthDate : "Add"}
           </div>
         </div>
       </div>
+
+      {
+        showAccountModal && (
+          <div className="modal fade show d-block" tabIndex="-1" role="dialog">
+            <div className="modal-dialog modal-dialog-centered" role="document">
+              <div className="modal-content">
+                <div className="modal-header">
+                  <h5 className="modal-title">Modal title</h5>
+                  <button type="button" className="btn-close" onClick={() => setShowAccountModal(false)}></button>
+                </div>
+                <div className="modal-body">
+                  <form onSubmit={handlebirthdayForm}>
+                    <div className="input-group">
+                      <span className="input-group-text">birthday</span>
+                      <input type="date" value={userBirthday} onChange={handleInputBirthdayChange} aria-label="birthday" className="form-control" />
+                    </div>
+                  </form>
+                </div>
+                <div className="modal-footer">
+                  <button type="button" className="btn btn-secondary" data-bs-dismiss="modal" onClick={() => setShowAccountModal(false)}>Close</button>
+                  <button type="button" className="btn btn-primary" onClick={handlebirthdayForm}>Save changes</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        )
+      }
+
     </div>
   );
 }

@@ -6,7 +6,9 @@ use App\Http\Controllers\Controller;
 use App\Models\Contact;
 use Illuminate\Http\Request;
 use \App\Http\Resources\ContactResource;
+use App\Http\Resources\UserAuthResource;
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
@@ -23,7 +25,20 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
+        $validate = $request->validate([
+            'birthday' => 'nullable|date'
+        ]);
+
+        $user = Auth::user();
+
+        $user->update([
+            'birthday' => $validate['birthday']
+        ]);
+
+        $userd = Auth::user();
+
+        return new UserAuthResource($userd);
     }
 
     /**
