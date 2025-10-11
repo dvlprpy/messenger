@@ -1,7 +1,15 @@
+import { useState } from "react"
 import PrivacyItem from "./PrivacyItem"
 
 export default function PrivacyModule({closePopUp}){
 
+    const [switchState, setSwitchState] = useState(false)
+    const autoDeleteMessageSwitch = <>
+        <div className="form-check form-switch">
+          <input className="form-check-input" type="checkbox" role="switch" id="switchCheckChecked" checked={switchState} onChange={() => {setSwitchState(!switchState)}} />
+            <label className="form-check-label" htmlFor="switchCheckChecked"></label>
+        </div>
+      </>
     return(
         <>
             {/*  Privacy and Security Container  */}
@@ -26,7 +34,7 @@ export default function PrivacyModule({closePopUp}){
                         checkBoxState={"off"} 
                         icon={"key"}
                     />
-                    
+
 
                     {/*  Local Password  */}
                     <PrivacyItem 
@@ -56,10 +64,12 @@ export default function PrivacyModule({closePopUp}){
 
 
                     {/*  Auto-Delete Message  */}
+                    
                     <PrivacyItem 
                         section={"auto-delete-messages"}
                         title={"Auto-Delete Messages"}
-                        checkBoxState={"off"}
+                        // checkBoxState={"off"}
+                        checkBoxState={autoDeleteMessageSwitch}
                         icon={"clock-history"} 
                     />
                 
@@ -98,15 +108,6 @@ export default function PrivacyModule({closePopUp}){
                         title={'Date of birth in private chate'} 
                         checkBoxState={'everybody'} 
                         icon={'calendar-date'} 
-                    />
-                    
-
-                    {/*  Groups & Channels  */}
-                    <PrivacyItem 
-                        section={"groups-and-channels"}
-                        title={'Date of birth in group and channel'} 
-                        checkBoxState={'everybody'} 
-                        icon={'people'} 
                     />
 
                 </div>

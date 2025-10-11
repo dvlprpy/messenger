@@ -1,10 +1,25 @@
 import { useState } from "react";
-import TwoStepVerificationModule from "./TwoStepVerificationModule";
+import TwoStepVerificationModule from "./sub_privacy_setting/TwoStepVerificationModule";
+import LocalPassword from "./sub_privacy_setting/LocalPassword";
+import PrivacySetting from "./PrivacySetting";
+import ActiveSessionContent from "./sub_privacy_setting/ActiveSessionContent";
+import BlockedUsersContent from "./sub_privacy_setting/BlockedUsersContent";
+import PhoneNumberContent from "./sub_privacy_setting/PhoneNumberContent";
+import LastSeenOnlineContent from "./sub_privacy_setting/LastSeenOnlineContent";
+import DateOfBirthPrivateChatContent from "./sub_privacy_setting/DateOfBirthPrivateChatContent";
+import DateOfDeletedAccountContent from "./sub_privacy_setting/DateOfDeletedAccountContent";
 
 export default function PrivacyItem({ section, title, checkBoxState, icon }) {
   let parent1, parent2, parent3, parent4, child1, child2;
 
-  const [twoStep, setTwoStep] = useState(false)
+  const [showModal, setShowModal] = useState(false)
+  const [settingClick, setSettingClick] = useState(null)
+
+  // تابع برای بستن مودال
+  const handleClose = () => setShowModal(false);
+
+  // متغیری برای نگهداری محتوا
+  let renderComponent = null;
 
   switch (section) {
     case "two-step-verification":
@@ -14,6 +29,7 @@ export default function PrivacyItem({ section, title, checkBoxState, icon }) {
       parent4 = "two-step-verification-checkbox";
       child1 = "two-step-verification-icon";
       child2 = "two-step-verification-title";
+      renderComponent = TwoStepVerificationModule({ handleClose })
       break;
     case "local-password":
       parent1 = "local-password";
@@ -22,6 +38,7 @@ export default function PrivacyItem({ section, title, checkBoxState, icon }) {
       parent4 = "local-password-checkbox";
       child1 = "local-password-icon";
       child2 = "local-password-title";
+      renderComponent = LocalPassword({ handleClose })
       break;
     case "active-session":
       parent1 = "active-session";
@@ -30,6 +47,7 @@ export default function PrivacyItem({ section, title, checkBoxState, icon }) {
       parent4 = "active-session-checkbox";
       child1 = "active-session-icon";
       child2 = "active-session-title";
+      renderComponent = ActiveSessionContent({ handleClose })
       break;
     case "blocked-users":
       parent1 = "blocked-user";
@@ -38,6 +56,7 @@ export default function PrivacyItem({ section, title, checkBoxState, icon }) {
       parent4 = "blocked-user-checkbox";
       child1 = "blocked-user-icon";
       child2 = "blocked-user-title";
+      renderComponent = BlockedUsersContent({ handleClose })
       break;
     case "auto-delete-messages":
       parent1 = "auto-delete-message";
@@ -55,6 +74,7 @@ export default function PrivacyItem({ section, title, checkBoxState, icon }) {
       parent4 = 'phone-number-setting-checkbox'
       child1 = 'phone-number-setting-icon'
       child2 = 'phone-number-setting-title'
+      renderComponent = PhoneNumberContent({handleClose})
       break;
 
     case "last-seen-and-online":
@@ -64,6 +84,7 @@ export default function PrivacyItem({ section, title, checkBoxState, icon }) {
       parent4 = 'last-seen-and-online-checkbox'
       child1 = 'last-seen-and-online-icon'
       child2 = 'last-seen-and-online-title'
+      renderComponent = LastSeenOnlineContent({handleClose})
       break;
 
     case "date-of-birth":
@@ -73,14 +94,7 @@ export default function PrivacyItem({ section, title, checkBoxState, icon }) {
       parent4 = 'last-seen-and-online-checkbox'
       child1 = 'date-of-birth-icon'
       child2 = 'last-seen-and-online-title'
-      break;
-    case "groups-and-channels":
-      parent1 = 'groups-and-channels'
-      parent2 = 'groups-and-channels-container'
-      parent3 = 'groups-and-channels-title-info'
-      parent4 = 'groups-and-channels-checkbox'
-      child1 = 'groups-and-channels-icon'
-      child2 = 'groups-and-channels-title'
+      renderComponent = DateOfBirthPrivateChatContent({handleClose})
       break;
     case "account-self-destruction":
       parent1 = 'account-self-destruction'
@@ -89,6 +103,7 @@ export default function PrivacyItem({ section, title, checkBoxState, icon }) {
       parent4 = 'account-self-destruction-checkbox'
       child1 = 'account-self-destruction-icon'
       child2 = 'account-self-destruction-title'
+      renderComponent = DateOfDeletedAccountContent({handleClose})
       break;
     default:
       parent1 = "default-setting";
@@ -110,14 +125,22 @@ export default function PrivacyItem({ section, title, checkBoxState, icon }) {
             {title}
           </div>
         </div>
-        <div className={`${parent4} text-capitalize text-primary font-size-small cursor-pointer`} onClick={() => {
-          section == 'two-step-verification' ? setTwoStep(true) : ''
-        }}>
+        <div className={`${parent4} text-capitalize text-primary font-size-small cursor-pointer`}
+          onClick={() => setShowModal(true)}
+        >
           {checkBoxState}
         </div>
       </div>
+
       {
-        twoStep && <TwoStepVerificationModule handleClose={() => setTwoStep(false)}/>
+        showModal && renderComponent && (
+          <PrivacySetting
+            header={renderComponent.header}
+            body={renderComponent.body}
+            footer={renderComponent.footer}
+            handleClose={handleClose}
+          />
+        )
       }
     </div>
   );

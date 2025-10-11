@@ -10148,6 +10148,10 @@ fieldset:disabled .btn {
     z-index: 3 !important
 }
 
+.direction-rtl{
+    direction: rtl;
+}
+
 @media (min-width:576px) {
     .float-sm-start {
         float: left !important
