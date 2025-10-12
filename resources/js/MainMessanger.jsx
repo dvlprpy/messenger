@@ -62,7 +62,7 @@ const Calls = lazy(() => import('./components/Setting_Components/Call/CallModule
 const Account = lazy(() => import('./components/Setting_Components/AccountModule'));
 const Notification_And_Sound = lazy(() => import('./components/Setting_Components/Notification/NotificationModule'));
 const Privacy_And_Security = lazy(() => import('./components/Setting_Components/Privacy/PrivacyModule'));
-const Chat_Setting = lazy(() => import('./components/Chat_list/ChatSettingModule'));
+const Chat_Setting = lazy(() => import('./components/Setting_Components/chat_setting/ChatSettingModule'));
 const Folders = lazy(() => import('./components/Setting_Components/FolderSettingModule'));
 const Advanced = lazy(() => import('./components/Setting_Components/AdvancedSettingModule'));
 const Speackers_And_Camera = lazy(() => import('./components/Setting_Components/SpeakerModule'));

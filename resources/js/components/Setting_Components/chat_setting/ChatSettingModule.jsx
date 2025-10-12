@@ -1,4 +1,5 @@
 import React, { useState, useCallback } from "react";
+import Swal from 'sweetalert2'
 
 export default function ChatSettingModule({ closePopUp }) {
     // مدیریت وضعیت (state) برای تنظیمات مختلف
@@ -7,6 +8,9 @@ export default function ChatSettingModule({ closePopUp }) {
         sendWithEnter: true, // به صورت پیشفرض انتخاب "Send with Enter"
         isDisable18Content: true, // پیش‌فرض "off" برای محتوای حساس
     });
+
+    const [fontModal, setFontModal] = useState(false);
+    const [inputModalValue, setInputModalValue] = useState('')
 
     // تابع عمومی برای تغییر وضعیت هر تنظیم
     const toggleSetting = useCallback((settingKey) => {
@@ -23,6 +27,17 @@ export default function ChatSettingModule({ closePopUp }) {
             sendWithEnter: method === 'enter', // اگر method برابر با 'enter' باشد، sendWithEnter را true قرار می‌دهیم.
         }));
     }, []);
+
+    const saveFontSetting = () => {
+        Swal.fire({
+            title: 'ذخیره موفق',
+            text: 'کاربر گرامی تغییرات شما با موفقیت ذخیره شد',
+            icon: 'success',
+            confirmButtonText: 'باشه',
+            draggable: true
+        })
+        setFontModal(false)
+    }
 
     return (
         <div className="chat-setting-container m-3">
@@ -55,7 +70,7 @@ export default function ChatSettingModule({ closePopUp }) {
                             </div>
                             <div className="font-family-title text-capitalize">Font family</div>
                         </div>
-                        <div className="font-family-checkbox font-size-small text-capitalize text-primary">Default</div>
+                        <div className="font-family-checkbox font-size-small text-capitalize text-primary" onClick={() => setFontModal(true)}>Default</div>
                     </div>
 
                     {/*  Auto-night mode  */}
@@ -68,10 +83,11 @@ export default function ChatSettingModule({ closePopUp }) {
                         </div>
                         <div
                             className="auto-night-mode-checkbox font-size-small text-capitalize text-primary"
-                            onClick={() => toggleSetting('isAutoNightMode')}
                             aria-label="Toggle Auto Night Mode"
                         >
-                            {settings.isAutoNightMode ? "On" : "Off"}
+                            <div className="form-check">
+                                <input className="form-check-input" type="checkbox" value="" id="checkDefault" onChange={() => toggleSetting('isAutoNightMode')} checked={settings.isAutoNightMode} />
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -140,16 +156,15 @@ export default function ChatSettingModule({ closePopUp }) {
                     </div>
                     <div
                         className="sensitive-content-setting-checkbox font-size-small text-capitalize text-primary"
-                        onClick={() => toggleSetting('isDisable18Content')}
                         aria-label="Toggle Sensitive Content"
                     >
-                        <div className="form-check form-switch">
+                        <div className="form-check form-switch cursor-pointer">
                             <input
                                 className="form-check-input border border-secondary"
                                 type="checkbox"
                                 role="switch"
                                 id="flexSwitchCheckChecked"
-                                // checked={settings.isDisable18Content}
+                                checked={settings.isDisable18Content}
                                 onChange={() => toggleSetting('isDisable18Content')}
                                 aria-label="Disable 18+ content"
                             />
@@ -161,6 +176,40 @@ export default function ChatSettingModule({ closePopUp }) {
                     </div>
                 </div>
             </div>
+
+
+            {
+                fontModal && (
+                    <div className="modal fade show d-block" tabIndex="-1">
+                        <div className="modal-dialog modal-dialog-scrollable modal-dialog-centered">
+                            <div className="modal-content">
+                                <div className="modal-header">
+                                    <h5 className="modal-title text-center w-full">تنظیمات زبان</h5>
+                                    <button type="button" className="btn-close" onClick={() => setFontModal(false)} data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div className="modal-body">
+                                    <h6 className="text-right text-muted mb-3">لطفا نوع فونت مورد نظر خود را انتخاب کنید.</h6>
+                                    <div className="input-group mb-3">
+                                        <span className="input-group-text" id="basic-addon1"><i class="bi bi-filetype-woff"></i></span>
+                                        <select className="form-select" onChange={(e) => setInputModalValue(e.target.value)} aria-label="Default select example">
+                                            <option value="arial" selected={inputModalValue == 'arial' ? true : false}>Arial</option>
+                                            <option value="times_new_roman" selected={inputModalValue == 'times_new_roman' ? true : false}>Times New Roman</option>
+                                            <option value="georgia" selected={inputModalValue == 'georgia' ? true : false}>Georgia</option>
+                                            <option value="vazir" selected={inputModalValue == 'vazir' ? true : false}>فونت وزیر</option>
+                                            <option value="IranNastaliq" selected={inputModalValue == 'IranNastaliq' ? true : false}>ایران نستعلیق</option>
+                                            <option value="IRANSans" selected={inputModalValue == 'IRANSans' ? true : false}>ایران سنس</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div className="modal-footer">
+                                    <button type="button" className="btn btn-secondary" onClick={() => setFontModal(false)} data-bs-dismiss="modal">بستن</button>
+                                    <button type="button" className="btn btn-primary" onClick={saveFontSetting}>ذخیره تغییرات</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                )
+            }
         </div>
     );
 }
