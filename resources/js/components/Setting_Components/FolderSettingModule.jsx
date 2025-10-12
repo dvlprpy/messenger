@@ -5,7 +5,7 @@ export default function FolderSettingModule({ closePopUp }) {
   const [selectedTabView, setSelectedTabView] = useState("left");
 
   // لیست پوشه‌ها
-  const [folders, setFolders] = useState(["Work", "Friends", "Family"]);
+  const [folders, setFolders] = useState(["Work", "Friends", "Family", 'News']);
 
   // افزودن پوشه جدید
   const addNewFolder = () => {
@@ -14,6 +14,14 @@ export default function FolderSettingModule({ closePopUp }) {
       setFolders([...folders, newFolderName]);
     }
   };
+
+  const handleRemove = (f) => {
+    const attributeName = f.target.getAttribute('data-name');
+    const updateFolder = folders.filter(list => list !== attributeName)
+    // setFolders(folderList => folderList.filter(item => item.attributeName !== attributeName))   
+    setFolders(updateFolder);
+     
+  }
 
   return (
     <div className="folder-container-setting m-3">
@@ -51,16 +59,25 @@ export default function FolderSettingModule({ closePopUp }) {
 
         {/* نمایش لیست پوشه‌ها */}
         <div className="folder-list mt-3">
-          {folders.map((folder, index) => (
+          {
+            folders.length > 0 ? 
+            folders.map((folder, index) => (
             <div key={index} className="sub-my-folder cursor-pointer mt-2 d-flex flex-row justify-content-between">
-              <div className="sub-my-folder-info ms-2 me-2 d-flex flex-row align-items-center">
-                <div className="sub-my-folder-icon text-secondary ms-2">
+              <div className="sub-my-folder-info ms-2 me-2 d-flex flex-row align-items-center w-full">
+                <div className="sub-my-folder-icon text-secondary ms-2 me-2">
                   <i className="bi bi-folder fs-4"></i>
                 </div>
-                <div className="sub-my-folder-title text-dark text-capitalize">{folder}</div>
+                <div className="sub-my-folder-title d-flex flex-row justify-content-between align-items-center w-full">
+                  <span className="text-dark text-capitalize">{folder}</span>
+                  <i className="bi bi-trash text-danger fs-4" data-name={folder} onClick={(e) => handleRemove(e)}></i>
+                </div>
               </div>
             </div>
-          ))}
+          )) : <p className="text-center text-muted fs-5">
+            کاربر گرامی هیچ اطلاعاتی برای نمایش وجود ندارد
+          </p>
+          }
+          {}
         </div>
       </div>
 
