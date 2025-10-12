@@ -1,53 +1,77 @@
-import DeviceSelector from './Device/DeviceSelector'
-export default function SpeakerModule({ closePopUp }){
-    return(
-        <>
-            {/*  Speakers and Camera Container Setting  */}
-            <div className="speakers-and-camera-container-setting m-3">
-                {/*  speakers and camera header  */}
-                <div className="speaker-and-camera-header-info p-2 d-flex flex-row justify-content-between align-items-center">
-                    <div className="speaker-and-camera-title text-capitalize fw-bold">speakers and camera</div>
-                    <div className="speaker-and-camera-closeBtn" onClick={closePopUp}>
-                        <i className="bi bi-x-lg cursor-pointer"></i>
-                    </div>
-                </div>
+import { useState, useEffect } from "react";
+import DeviceSelector from './Device/DeviceSelector';
 
-                {/*  Speakers and Headphones  */}
-                <div className="speakers-and-headphones-container-setting">
+export default function SpeakerModule({ closePopUp }) {
+  // State ها برای ذخیره انتخاب کاربر
+  const [selectedSpeaker, setSelectedSpeaker] = useState("Default");
+  const [selectedMicrophone, setSelectedMicrophone] = useState("Default");
+  const [selectedCamera, setSelectedCamera] = useState("Default");
 
-                    {/*  speakers and Headphones header  */}
-                    <div className="speaker-and-camera-header-info mt-4">
-                        <div className="speaker-and-camera-title text-capitalize text-primary fw-bold">speakers and headphones</div>
-                    </div>
+  // بارگذاری مقادیر ذخیره شده از localStorage
+  useEffect(() => {
+    const savedSpeaker = localStorage.getItem("selectedSpeaker");
+    const savedMic = localStorage.getItem("selectedMicrophone");
+    const savedCamera = localStorage.getItem("selectedCamera");
 
-                    {/*  Output Device  */}
-                    <DeviceSelector category={'speaker'}/>
-                </div>
+    if (savedSpeaker) setSelectedSpeaker(savedSpeaker);
+    if (savedMic) setSelectedMicrophone(savedMic);
+    if (savedCamera) setSelectedCamera(savedCamera);
+  }, []);
 
+  // ذخیره مقادیر در localStorage هر بار که تغییر کردند
+  useEffect(() => {
+    localStorage.setItem("selectedSpeaker", selectedSpeaker);
+  }, [selectedSpeaker]);
 
-                {/*  Microphone  */}
-                <div className="microphone-container-setting">
-                    {/*  Microphone header  */}
-                    <div className="microphone-header-info mt-4">
-                        <div className="microphone-title text-capitalize text-primary fw-bold">microphone</div>
-                    </div>
-                    {/*  Input Device  */}
-                    <DeviceSelector category={'microphone'}/>
-                </div>
+  useEffect(() => {
+    localStorage.setItem("selectedMicrophone", selectedMicrophone);
+  }, [selectedMicrophone]);
 
+  useEffect(() => {
+    localStorage.setItem("selectedCamera", selectedCamera);
+  }, [selectedCamera]);
 
-                {/*  Camera  */}
-                <div className="camera-container-setting">
-                    
-                    {/*  Camera header  */}
-                    <div className="camera-header-info mt-4">
-                        <div className="camera-title text-capitalize text-primary fw-bold">camera</div>
-                    </div>
+  return (
+    <>
+      <div className="speakers-and-camera-container-setting m-3">
+        {/* Header */}
+        <div className="speaker-and-camera-header-info p-2 d-flex flex-row justify-content-between align-items-center">
+          <div className="speaker-and-camera-title text-capitalize fw-bold">speakers and camera</div>
+          <div className="speaker-and-camera-closeBtn" onClick={closePopUp}>
+            <i className="bi bi-x-lg cursor-pointer"></i>
+          </div>
+        </div>
 
-                    {/*  Input Device  */}
-                    <DeviceSelector category={'camera'}/>
-                </div>
-            </div>
-        </>
-    )
+        {/* Speakers */}
+        <div className="speakers-and-headphones-container-setting mt-4">
+          <div className="speaker-and-camera-title text-capitalize text-primary fw-bold">speakers and headphones</div>
+          <DeviceSelector
+            category="speaker"
+            selectedDevice={selectedSpeaker}
+            setSelectedDevice={setSelectedSpeaker}
+          />
+        </div>
+
+        {/* Microphone */}
+        <div className="microphone-container-setting mt-4">
+          <div className="microphone-title text-capitalize text-primary fw-bold">microphone</div>
+          <DeviceSelector
+            category="microphone"
+            selectedDevice={selectedMicrophone}
+            setSelectedDevice={setSelectedMicrophone}
+          />
+        </div>
+
+        {/* Camera */}
+        <div className="camera-container-setting mt-4">
+          <div className="camera-title text-capitalize text-primary fw-bold">camera</div>
+          <DeviceSelector
+            category="camera"
+            selectedDevice={selectedCamera}
+            setSelectedDevice={setSelectedCamera}
+          />
+        </div>
+      </div>
+    </>
+  );
 }
