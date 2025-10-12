@@ -10,7 +10,7 @@ export default function ChatSettingModule({ closePopUp }) {
     });
 
     const [fontModal, setFontModal] = useState(false);
-    const [inputModalValue, setInputModalValue] = useState('')
+    const [inputModalValue, setInputModalValue] = useState('default')
 
     // تابع عمومی برای تغییر وضعیت هر تنظیم
     const toggleSetting = useCallback((settingKey) => {
@@ -70,7 +70,7 @@ export default function ChatSettingModule({ closePopUp }) {
                             </div>
                             <div className="font-family-title text-capitalize">Font family</div>
                         </div>
-                        <div className="font-family-checkbox font-size-small text-capitalize text-primary" onClick={() => setFontModal(true)}>Default</div>
+                        <div className="font-family-checkbox font-size-small text-capitalize text-primary" onClick={() => setFontModal(true)}>{inputModalValue}</div>
                     </div>
 
                     {/*  Auto-night mode  */}
@@ -192,6 +192,7 @@ export default function ChatSettingModule({ closePopUp }) {
                                     <div className="input-group mb-3">
                                         <span className="input-group-text" id="basic-addon1"><i class="bi bi-filetype-woff"></i></span>
                                         <select className="form-select" onChange={(e) => setInputModalValue(e.target.value)} aria-label="Default select example">
+                                            <option value="default" selected >default</option>
                                             <option value="arial" selected={inputModalValue == 'arial' ? true : false}>Arial</option>
                                             <option value="times_new_roman" selected={inputModalValue == 'times_new_roman' ? true : false}>Times New Roman</option>
                                             <option value="georgia" selected={inputModalValue == 'georgia' ? true : false}>Georgia</option>
