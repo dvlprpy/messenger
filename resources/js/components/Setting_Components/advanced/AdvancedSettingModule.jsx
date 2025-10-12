@@ -1,10 +1,27 @@
-import { useState, useCallback } from 'react';
+import React, { lazy, Suspense, useState, useCallback } from 'react';
+import DownloadPathContent from './sub_settings/DownloadPathContent';
+import ConnectionTypeContent from "./sub_settings/ConnectionTypeContent";
+import InGroupContent from "./sub_settings/InGroupContent";
+import InChannelContent from "./sub_settings/InChannelContent";
+
 
 export default function AdvancedSettingModule({ closePopUp }) {
+
+    // =====================
+    // 🎛️ State
+    // =====================
     const [isDownloadPathChecked, setIsDownloadPathChecked] = useState(false);
     const [isAskDownloadPathChecked, setIsAskDownloadPathChecked] = useState(false);
     const [isUseSystemSpellCheckerChecked, setIsUseSystemSpellCheckerChecked] = useState(true);
     const [isUpdateAutomaticallyChecked, setIsUpdateAutomaticallyChecked] = useState(true);
+    const [activeSetting, setActiveSetting] = useState('');
+    const [downloadPath, setDownloadPath] = useState("default folder");
+    const [connectionType, setConnectionType] = useState("TCP direct");
+    const [proxySettings, setProxySettings] = useState({ host: "", port: "" });
+    const [inGroupDownload, setInGroupDownload] = useState(true);
+    const [inChannelDownload, setInChannelDownload] = useState(true);
+
+    const handleCloseModal = () => setActiveSetting(null);
 
     const handleDownloadPathChange = useCallback(() => {
         setIsDownloadPathChecked(prev => !prev);
@@ -48,7 +65,7 @@ export default function AdvancedSettingModule({ closePopUp }) {
                             </div>
                             <div className="download-path-title text-capitalize">download path</div>
                         </div>
-                        <div className="download-path-checkbox text-capitalize text-primary font-size-small ">default folder</div>
+                        <div className="download-path-checkbox text-capitalize text-primary font-size-small" onClick={() => setActiveSetting("download-path")}>{downloadPath}</div>
                     </div>
 
                     {/* Connection Type */}
@@ -59,7 +76,13 @@ export default function AdvancedSettingModule({ closePopUp }) {
                             </div>
                             <div className="connection-type-title text-capitalize">connection type</div>
                         </div>
-                        <div className="connection-type-checkbox text-capitalize text-primary font-size-small ">TCP with proxy</div>
+                        <div className="connection-type-checkbox text-capitalize text-primary font-size-small" onClick={() => setActiveSetting("connection-type")}>
+                            {connectionType}
+                            {connectionType === "TCP with proxy" && proxySettings.host && proxySettings.port
+                                ? ` (${proxySettings.host}:${proxySettings.port})`
+                                : ""}
+
+                        </div>
                     </div>
 
                     {/* Ask Download Path For Each File */}
@@ -92,25 +115,26 @@ export default function AdvancedSettingModule({ closePopUp }) {
                         automatic media download
                     </div>
 
-                    {/* in groups */}
-                    <div className="in-group-setting ms-2 me-2 d-flex flex-row justify-content-between align-items-center cursor-pointer">
-                        <div className="in-group-info d-flex flex-row justify-content-around align-items-center">
-                            <div className="in-group-icon ms-2">
-                                <i className="bi bi-people fs-4"></i>
-                            </div>
-                            <div className="in-group-title text-capitalize">in groups</div>
+                    {/* in group setting */}
+                    <div className="in-group-setting ms-2 me-2 d-flex justify-content-between align-items-center cursor-pointer"
+                        onClick={() => setActiveSetting("in-group")}>
+                        <div className="d-flex flex-row align-items-center">
+                            <i className="bi bi-people fs-4 me-2"></i>
+                            <span>In groups</span>
                         </div>
+                        <span className="text-primary">{inGroupDownload ? "Enabled" : "Disabled"}</span>
                     </div>
 
-                    {/* in channels */}
-                    <div className="in-channel-setting ms-2 me-2 d-flex flex-row justify-content-between align-items-center cursor-pointer">
-                        <div className="in-group-info d-flex flex-row justify-content-around align-items-center">
-                            <div className="in-group-icon ms-2">
-                                <img src="/Icon/horn.svg" alt="Horn SVG Icon" width={25} height={25} />
-                            </div>
-                            <div className="in-group-title text-capitalize">in channels</div>
+                    {/* in channel setting */}
+                    <div className="in-channel-setting ms-2 me-2 d-flex justify-content-between align-items-center cursor-pointer"
+                        onClick={() => setActiveSetting("in-channel")}>
+                        <div className="d-flex flex-row align-items-center">
+                            <img src="/Icon/horn.svg" alt="Horn SVG Icon" width={25} height={25} className="me-2" />
+                            <span>In channels</span>
                         </div>
+                        <span className="text-primary">{inChannelDownload ? "Enabled" : "Disabled"}</span>
                     </div>
+
                 </div>
 
                 {/* Window Title Bar */}
@@ -218,6 +242,34 @@ export default function AdvancedSettingModule({ closePopUp }) {
                     </div>
                 </div>
             </div>
+
+            {activeSetting === "download-path" && (
+                <DownloadPathContent onClose={handleCloseModal} setDownloadPath={setDownloadPath} />
+            )}
+            {activeSetting === "connection-type" && (
+                <ConnectionTypeContent
+                    onClose={handleCloseModal}
+                    initialType={connectionType}
+                    setConnectionType={setConnectionType}
+                    proxySettings={proxySettings}
+                    setProxySettings={setProxySettings}
+                />
+            )}
+            {/* Modals */}
+            {activeSetting === "in-group" && (
+                <InGroupContent
+                    onClose={handleCloseModal}
+                    initialValue={inGroupDownload}
+                    setValue={setInGroupDownload}
+                />
+            )}
+            {activeSetting === "in-channel" && (
+                <InChannelContent
+                    onClose={handleCloseModal}
+                    initialValue={inChannelDownload}
+                    setValue={setInChannelDownload}
+                />
+            )}
         </>
     );
 }

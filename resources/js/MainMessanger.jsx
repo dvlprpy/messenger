@@ -64,7 +64,7 @@ const Notification_And_Sound = lazy(() => import('./components/Setting_Component
 const Privacy_And_Security = lazy(() => import('./components/Setting_Components/Privacy/PrivacyModule'));
 const Chat_Setting = lazy(() => import('./components/Setting_Components/chat_setting/ChatSettingModule'));
 const Folders = lazy(() => import('./components/Setting_Components/FolderSettingModule'));
-const Advanced = lazy(() => import('./components/Setting_Components/AdvancedSettingModule'));
+const Advanced = lazy(() => import('./components/Setting_Components/advanced/AdvancedSettingModule'));
 const Speackers_And_Camera = lazy(() => import('./components/Setting_Components/SpeakerModule'));
 const Language = lazy(() => import('./components/Setting_Components/LanguageModule'));
 const FAQ = lazy(() => import('./components/Setting_Components/FaqModule'));
