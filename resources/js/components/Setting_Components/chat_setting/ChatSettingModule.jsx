@@ -190,16 +190,22 @@ export default function ChatSettingModule({ closePopUp }) {
                                 <div className="modal-body">
                                     <h6 className="text-right text-muted mb-3">لطفا نوع فونت مورد نظر خود را انتخاب کنید.</h6>
                                     <div className="input-group mb-3">
-                                        <span className="input-group-text" id="basic-addon1"><i class="bi bi-filetype-woff"></i></span>
-                                        <select className="form-select" onChange={(e) => setInputModalValue(e.target.value)} aria-label="Default select example">
-                                            <option value="default" selected >default</option>
-                                            <option value="arial" selected={inputModalValue == 'arial' ? true : false}>Arial</option>
-                                            <option value="times_new_roman" selected={inputModalValue == 'times_new_roman' ? true : false}>Times New Roman</option>
-                                            <option value="georgia" selected={inputModalValue == 'georgia' ? true : false}>Georgia</option>
-                                            <option value="vazir" selected={inputModalValue == 'vazir' ? true : false}>فونت وزیر</option>
-                                            <option value="IranNastaliq" selected={inputModalValue == 'IranNastaliq' ? true : false}>ایران نستعلیق</option>
-                                            <option value="IRANSans" selected={inputModalValue == 'IRANSans' ? true : false}>ایران سنس</option>
+                                        <span className="input-group-text" id="basic-addon1"><i className="bi bi-filetype-woff"></i></span>
+                                        <select
+                                            className="form-select"
+                                            value={inputModalValue}        // ← جایگزین selected شد
+                                            onChange={(e) => setInputModalValue(e.target.value)}
+                                            aria-label="Default select example"
+                                        >
+                                            <option value="default">default</option>
+                                            <option value="arial">Arial</option>
+                                            <option value="times_new_roman">Times New Roman</option>
+                                            <option value="georgia">Georgia</option>
+                                            <option value="vazir">فونت وزیر</option>
+                                            <option value="IranNastaliq">ایران نستعلیق</option>
+                                            <option value="IRANSans">ایران سنس</option>
                                         </select>
+
                                     </div>
                                 </div>
                                 <div className="modal-footer">
