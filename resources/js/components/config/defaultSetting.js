@@ -27,25 +27,64 @@ const settings = {
     },
     privacy: {
         security: {
-            two_step_verification: false,
-            local_password: false,
-            active_session: 2,
-            blocked_users: 5,
+            two_step_verification: {
+                Email: false, 
+                phone: false
+            },
+            local_password: {
+                password: false
+            },
+            active_session: {
+                device_name: null, 
+                device_location: null, 
+                device_ip: null, 
+                device_activity: null
+            },
+            blocked_users: {
+                block_user_fullname: null, 
+                block_user_username: null, 
+                block_user_activity: null,
+                block_user_status: 'block'
+            },
             auto_delete_messages: false
         },
         privacy: {
-            phone_number: "Everybody",
-            last_seen_and_online: "Everybody",
-            date_of_birth_in_private_chat: "Contact",
-            date_of_birth_in_group_and_channel: "Nobody"
+            phone_number: {
+                everybody: false, 
+                contact: true, 
+                nobody: false, 
+                allow_contact_list: {
+                    username: null
+                }, 
+                deny_contact_list: {
+                    username: null
+                }
+            },
+            last_seen_and_online: {
+                everybody: true, 
+                contact: false, 
+                nobody: false, 
+                allow_list: {
+                    username: null
+                }, 
+                deny_list: {
+                    username: null
+                }
+            },
+            date_of_birth_in_private_chat: false,
         },
         delete_my_account: {
-            date_of_deleted_account: "11 month"
+            after_one_month: true, 
+            after_three_month: false, 
+            after_six_month: false, 
+            after_one_year: false
         }
     },
     chat_setting: {
         theme_settings: {
-            font_family: "default",
+            font_family: {
+                font_name: 'default'
+            },
             auto_night_mode: true
         },
         messages: {
@@ -65,16 +104,23 @@ const settings = {
     },
     advanced: {
         data_and_storage: {
-            download_path: "default path",
-            connection_type: "tcp with proxy",
+            download_path: "C:/Users/User/Downloads",
+            connection_type: {
+                tcp_with_proxy: {
+                    status: false, 
+                    host_address: false, 
+                    port: false
+                }, 
+                tcp_direct: true
+            },
             ask_download_path_for_each_file: false
         },
         automatic_media_download: {
             in_group: {
-                media_item_types: ["image", "voice"]
+                media_item_types: ["image"]
             },
             in_channel: {
-                media_item_types: ["image", "video"]
+                media_item_types: ["video"]
             }
         },
         window_title_bar: {
@@ -86,7 +132,6 @@ const settings = {
         },
         version_and_update: {
             update_automatically: false,
-            check_for_update: false
         }
     },
     speakers_and_camera: {

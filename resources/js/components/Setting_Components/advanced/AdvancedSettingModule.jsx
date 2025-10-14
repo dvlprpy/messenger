@@ -235,11 +235,11 @@ export default function AdvancedSettingModule({ closePopUp }) {
                     </div>
 
                     {/* Check For Update */}
-                    <div className="check-for-update ms-2 me-2 d-flex flex-row justify-content-between align-items-center cursor-pointer">
+                    {/* <div className="check-for-update ms-2 me-2 d-flex flex-row justify-content-between align-items-center cursor-pointer">
                         <div className="check-for-update-info d-flex flex-row justify-content-around align-items-center">
                             <div className="check-for-update-title text-capitalize">check for update</div>
                         </div>
-                    </div>
+                    </div> */}
                 </div>
             </div>
 
