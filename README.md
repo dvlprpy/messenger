@@ -1,61 +1,137 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# 💬 Messenger
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+یک پیام‌رسان تحت وب ساخته‌شده با **React**، **Laravel**، **Bootstrap** و **Tailwind CSS**  
+هدف این پروژه، شبیه‌سازی امکانات اصلی تلگرام در محیط وب است.  
+این پروژه همچنان در حال توسعه است 🚧
 
-## About Laravel
+---
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## ⚙️ تکنولوژی‌های استفاده‌شده
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+- **Frontend:** React, Tailwind CSS, Bootstrap  
+- **Backend:** Laravel (PHP Framework)  
+- **Database:** MySQL + PostgreSQL  
+- **API:** RESTful  
+- **Authentication:** JWT / Laravel Sanctum  
+- **Email Service:** Mailtrap (برای بازیابی رمز عبور و تست ایمیل‌ها)
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+> 💡 در این پروژه از هر دو پایگاه‌داده **MySQL** و **PostgreSQL** استفاده شده است:  
+> - **MySQL** برای داده‌های ساختاریافته و عمومی (مانند کاربران و تنظیمات)  
+> - **PostgreSQL** برای داده‌های پویا و حجیم با پشتیبانی از نوع داده‌ی `JSONB` جهت عملکرد بهتر در پردازش پیام‌ها و متادیتاها  
 
-## Learning Laravel
+---
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+## 🚀 نصب و اجرا
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+### پیش‌نیازها
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+قبل از شروع، اطمینان حاصل کنید که ابزارهای زیر نصب هستند:
 
-## Laravel Sponsors
+- Node.js (نسخه ۱۸ یا بالاتر)
+- PHP (نسخه ۸ یا بالاتر)
+- Composer
+- MySQL و PostgreSQL (آخرین نسخه)
+- Git
+- حساب Mailtrap برای تست ارسال ایمیل‌ها
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+---
 
-### Premium Partners
+### مراحل اجرا
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+#### 1. کلون کردن مخزن
+```bash
+git clone https://github.com/dvlprpy/messenger.git
+cd messenger
+```
 
-## Contributing
+#### 2. نصب وابستگی‌های بک‌اند (Laravel)
+```bash
+cd backend
+composer install
+cp .env.example .env
+php artisan key:generate
+php artisan migrate
+php artisan serve
+```
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+> ⚙️ در فایل `.env` می‌توانید تنظیمات پایگاه‌داده و سرویس ایمیل را انجام دهید:
 
-## Code of Conduct
+```env
+# انتخاب نوع دیتابیس
+DB_CONNECTION=mysql
+# یا
+DB_CONNECTION=pgsql
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+# تنظیمات Mailtrap برای ارسال ایمیل
+MAIL_MAILER=smtp
+MAIL_HOST=sandbox.smtp.mailtrap.io
+MAIL_PORT=2525
+MAIL_USERNAME=your_mailtrap_username
+MAIL_PASSWORD=your_mailtrap_password
+MAIL_ENCRYPTION=tls
+MAIL_FROM_ADDRESS="noreply@messenger.local"
+MAIL_FROM_NAME="Messenger"
+```
 
-## Security Vulnerabilities
+#### 3. نصب وابستگی‌های فرانت‌اند (React)
+```bash
+cd ../frontend
+npm install
+npm start
+```
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+سپس پروژه در مرورگر در مسیر زیر در دسترس خواهد بود:
+```
+http://localhost:3000
+```
 
-## License
+---
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+## 🌟 ویژگی‌ها (در حال توسعه)
+
+- چت دوطرفه (Private Messaging)  
+- ارسال عکس، ویدیو و فایل  
+- گروه‌ها و کانال‌ها  
+- وضعیت آنلاین بودن کاربران  
+- سیستم اعلان‌ها (Notifications)  
+- فراموشی رمز عبور با استفاده از Mailtrap  
+- ساختار ترکیبی دیتابیس با MySQL + PostgreSQL  
+- ذخیره‌ی پیام‌ها و داده‌های پویا در PostgreSQL با نوع داده‌ی `JSONB`  
+
+---
+
+## 🗺️ نقشه راه (Roadmap)
+
+- [ ] افزودن تماس صوتی و تصویری  
+- [ ] پشتیبانی از پیام‌های زمان‌بندی‌شده  
+- [ ] حالت تاریک (Dark Mode)  
+- [ ] نسخه‌ی موبایل واکنش‌گرا  
+- [ ] رمزگذاری سرتاسری (End-to-End Encryption)  
+
+---
+
+## 🤝 مشارکت‌کنندگان
+
+مشارکت در این پروژه باعث افتخار است!  
+برای مشارکت:
+
+1. پروژه را Fork کنید  
+2. یک Branch جدید بسازید (`feature/new-feature`)  
+3. تغییرات خود را اعمال و Commit کنید  
+4. Pull Request ارسال کنید ✅
+
+---
+
+## 📫 ارتباط با من
+
+GitHub: [@dvlprpy](https://github.com/dvlprpy)
+
+---
+
+## 📄 مجوز
+
+این پروژه فعلاً **متن‌باز (Open Source)** است، اما ممکن است پس از اتمام توسعه به‌صورت خصوصی منتشر شود.
+
+---
+
+⭐ اگر این پروژه برایتان مفید بود، فراموش نکنید آن را در GitHub **Star** کنید!
