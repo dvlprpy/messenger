@@ -2,8 +2,7 @@
 
 یک پیام‌رسان تحت وب ساخته‌شده با **React**، **Laravel**، **Bootstrap** و **Tailwind CSS**  
 هدف این پروژه، شبیه‌سازی امکانات اصلی تلگرام در محیط وب است.  
-این پروژه همچنان در حال توسعه است 🚧
-
+<p style="text-align:center; direction:rtl;">🚧 این پروژه همچنان در حال توسعه است</p>
 ---
 
 ## ⚙️ تکنولوژی‌های استفاده‌شده
@@ -13,7 +12,8 @@
 - **Database:** MySQL + PostgreSQL  
 - **API:** RESTful  
 - **Authentication:** JWT / Laravel Sanctum  
-- **Email Service:** Mailtrap (برای بازیابی رمز عبور و تست ایمیل‌ها)
+- **Email Service:** Mailtrap (برای بازیابی رمز عبور و تست ایمیل‌ها)  
+- **Local Environment:** Apache Virtual Host (Windows & Linux)
 
 > 💡 در این پروژه از هر دو پایگاه‌داده **MySQL** و **PostgreSQL** استفاده شده است:  
 > - **MySQL** برای داده‌های ساختاریافته و عمومی (مانند کاربران و تنظیمات)  
@@ -32,6 +32,7 @@
 - Composer
 - MySQL و PostgreSQL (آخرین نسخه)
 - Git
+- Apache (برای پشتیبانی از Virtual Hosts)
 - حساب Mailtrap برای تست ارسال ایمیل‌ها
 
 ---
@@ -51,7 +52,6 @@ composer install
 cp .env.example .env
 php artisan key:generate
 php artisan migrate
-php artisan serve
 ```
 
 > ⚙️ در فایل `.env` می‌توانید تنظیمات پایگاه‌داده و سرویس ایمیل را انجام دهید:
@@ -73,16 +73,94 @@ MAIL_FROM_ADDRESS="noreply@messenger.local"
 MAIL_FROM_NAME="Messenger"
 ```
 
-#### 3. نصب وابستگی‌های فرانت‌اند (React)
+---
+
+## 🌐 تنظیم Virtual Host (اختیاری ولی توصیه‌شده)
+
+### 🔹 در ویندوز
+
+#### 1. ویرایش فایل Virtual Hosts  
+مسیر:  
+```
+C:/xampp/apache/conf/extra/httpd-vhosts.conf
+```
+افزودن پیکربندی زیر:
+```apache
+<VirtualHost *:80>
+    ServerAdmin webmaster@localhost
+    DocumentRoot "C:/xampp/htdocs/messenger/public"
+    ServerName messenger.local
+    <Directory "C:/xampp/htdocs/messenger/public">
+        AllowOverride All
+        Require all granted
+    </Directory>
+</VirtualHost>
+```
+
+#### 2. ویرایش فایل hosts ویندوز  
+مسیر:  
+```
+C:/Windows/System32/drivers/etc/hosts
+```
+افزودن خط زیر به انتهای فایل:
+```
+127.0.0.1   messenger.local
+```
+
+---
+
+### 🔹 در لینوکس
+
+#### 1. ایجاد فایل Virtual Host جدید  
+مسیر پیشنهادی:  
+```
+/etc/apache2/sites-available/messenger.conf
+```
+افزودن پیکربندی زیر:
+```apache
+<VirtualHost *:80>
+    ServerAdmin webmaster@localhost
+    DocumentRoot /var/www/html/messenger/public
+    ServerName messenger.local
+
+    <Directory /var/www/html/messenger/public>
+        AllowOverride All
+        Require all granted
+    </Directory>
+
+    ErrorLog ${APACHE_LOG_DIR}/messenger_error.log
+    CustomLog ${APACHE_LOG_DIR}/messenger_access.log combined
+</VirtualHost>
+```
+
+#### 2. فعال‌سازی Virtual Host و ماژول rewrite
+```bash
+sudo a2ensite messenger.conf
+sudo a2enmod rewrite
+sudo systemctl restart apache2
+```
+
+#### 3. ویرایش فایل hosts لینوکس
+```bash
+sudo nano /etc/hosts
+```
+افزودن خط زیر:
+```
+127.0.0.1   messenger.local
+```
+
+اکنون می‌توانید پروژه را از آدرس زیر باز کنید:
+```
+http://messenger.local
+```
+
+---
+
+### 3. نصب وابستگی‌های فرانت‌اند (React)
 ```bash
 cd ../frontend
 npm install
 npm start
-```
-
-سپس پروژه در مرورگر در مسیر زیر در دسترس خواهد بود:
-```
-http://localhost:3000
 ```
 
 ---
@@ -95,6 +173,7 @@ http://localhost:3000
 - وضعیت آنلاین بودن کاربران  
 - سیستم اعلان‌ها (Notifications)  
 - فراموشی رمز عبور با استفاده از Mailtrap  
+- پشتیبانی از Virtual Host برای محیط توسعه در ویندوز و لینوکس  
 - ساختار ترکیبی دیتابیس با MySQL + PostgreSQL  
 - ذخیره‌ی پیام‌ها و داده‌های پویا در PostgreSQL با نوع داده‌ی `JSONB`  
 
