@@ -9,9 +9,13 @@ class MessageFactory extends Factory
     public function definition(): array
     {
         return [
-            'chat_id' => null,   // بعداً Seeder مقدار می‌ده
-            'sender_id' => null, // بعداً Seeder مقدار می‌ده
-            'content' => ['text' => $this->faker->sentence()],
+            'chat_id' => null,
+            'sender_id' => null,
+            'content' => [
+                'text' => $this->faker->sentence(),
+                'file' => null,
+                'image' => null
+            ],
             'sent_at' => now(),
             'edited' => false,
         ];

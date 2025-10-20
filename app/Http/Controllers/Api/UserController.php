@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\Contact;
+use App\Models\UserSetting;
 use Illuminate\Http\Request;
 use \App\Http\Resources\ContactResource;
 use App\Http\Resources\UserAuthResource;
@@ -66,10 +67,32 @@ class UserController extends Controller
     }
 
     /**
-     * user setting.
+     * Get User Setitng 
      */
-    public function settings()
+    public function getSettings()
     {
-        //
+        $userSetting = UserSetting::where('user_id', Auth::id())->first();
+        $defaultSettings = config('default_settings');
+
+        return response()->json($userSetting ? $userSetting->preferences : $defaultSettings);
+    }
+
+
+
+    /* 
+        Update User Setting
+    */
+    public function updateSettings(Request $request)
+    {
+        $data = $request->validate([
+            'preferences' => 'required|array',
+        ]);
+
+        $setting = UserSetting::updateOrCreate(
+            ['user_id' => Auth::id()],
+            ['preferences' => $data['preferences']]
+        );
+
+        return response()->json(['success' => true, 'preferences' => $setting->preferences]);
     }
 }

@@ -29,7 +29,8 @@ export default function PrivacyModule({closePopUp}){
 
                     {/*  Two-Step Verification Setting  */}
                     <PrivacyItem 
-                        section={"two-step-verification"} 
+                        classProp={"two-step-verification"} 
+                        section={"twoStepVerification"} 
                         title={"Two-Step Verification"} 
                         checkBoxState={"off"} 
                         icon={"key"}
@@ -38,7 +39,8 @@ export default function PrivacyModule({closePopUp}){
 
                     {/*  Local Password  */}
                     <PrivacyItem 
-                        section={"local-password"}
+                        classProp={"local-password"}
+                        section={"localPassword"}
                         title={"Local Password"}
                         checkBoxState={"off"}
                         icon={"shield-lock"} 
@@ -47,7 +49,8 @@ export default function PrivacyModule({closePopUp}){
 
                     {/*  Active Session  */}
                     <PrivacyItem 
-                        section={"active-session"}
+                        classProp={"active-session"}
+                        section={"activeSession"}
                         title={"Active Session"}
                         checkBoxState={"2"}
                         icon={"laptop"}
@@ -56,7 +59,8 @@ export default function PrivacyModule({closePopUp}){
 
                     {/*  Blocked User  */}
                     <PrivacyItem 
-                        section={"blocked-users"}
+                        classProp={"blocked-users"}
+                        section={"blockedUsers"}
                         title={"Blocked Users"}
                         checkBoxState={"5"}
                         icon={"person-slash"} 
@@ -64,9 +68,9 @@ export default function PrivacyModule({closePopUp}){
 
 
                     {/*  Auto-Delete Message  */}
-                    
                     <PrivacyItem 
-                        section={"auto-delete-messages"}
+                        classProp={"auto-delete-messages"}
+                        section={"autoDeleteMessages"}
                         title={"Auto-Delete Messages"}
                         // checkBoxState={"off"}
                         checkBoxState={autoDeleteMessageSwitch}
@@ -84,7 +88,8 @@ export default function PrivacyModule({closePopUp}){
 
                     {/*  Phone Number Setting  */}
                     <PrivacyItem 
-                        section={"phone-number-setting"}
+                        classProp={"phone-number-setting"}
+                        section={"phoneNumberSetting"}
                         title={"Phone Number"}
                         checkBoxState={"everybody"}
                         icon={"phone"} 
@@ -95,7 +100,8 @@ export default function PrivacyModule({closePopUp}){
 
                     {/*  last seen & online  */}
                     <PrivacyItem 
-                        section={"last-seen-and-online"}
+                        classProp={"last-seen-and-online"}
+                        section={"lastSeenAndOnline"}
                         title={'last seen & online'} 
                         checkBoxState={'everybody'} 
                         icon={'check-all'} 
@@ -104,7 +110,8 @@ export default function PrivacyModule({closePopUp}){
 
                     {/*  Date of Birth  */}
                     <PrivacyItem 
-                        section={"date-of-birth"}
+                        classProp={"date-of-birth"}
+                        section={"dateOfBirth"}
                         title={'Date of birth in private chate'} 
                         checkBoxState={'everybody'} 
                         icon={'calendar-date'} 
@@ -121,7 +128,8 @@ export default function PrivacyModule({closePopUp}){
 
                     {/*  Account Self Destructions  */}
                     <PrivacyItem 
-                        section={"account-self-destruction"}
+                        classProp={"account-self-destruction"}
+                        section={"accountSelfDestruction"}
                         title={'Date of deleted account'} 
                         checkBoxState={'if away for...'} 
                         icon={'trash'} 

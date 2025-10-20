@@ -9,12 +9,23 @@ class UserSettingFactory extends Factory
     public function definition(): array
     {
         return [
-            'user_id' => null, // بعداً تو Seeder مقدار می‌گیره
-            'preferences' => [
-                'theme' => $this->faker->randomElement(['light', 'dark']),
-                'font' => $this->faker->randomElement(['iranSans', 'tahoma']),
-                'language' => $this->faker->randomElement(['fa', 'en']),
+            'personal_info' => [
+                'bio' => $this->faker->sentence(),
+                'status' => $this->faker->randomElement(['online', 'offline', 'busy']),
             ],
+            'notification_and_sounds' => [
+                'message_sound' => true,
+                'vibrate' => false,
+            ],
+            'privacy_and_security' => [
+                'last_seen' => 'contacts',
+                'read_receipts' => true,
+            ],
+            'chat_settings' => [
+                'theme' => $this->faker->randomElement(['light', 'dark']),
+                'font' => 'iransans',
+            ],
+            'languages' => ['fa'],
         ];
     }
 }

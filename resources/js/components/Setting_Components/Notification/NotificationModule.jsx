@@ -1,6 +1,7 @@
 import NotificationSection from "./NotificationSection";
 import LocationNotification from "./LocationNotification";
 import { useEffect, useState } from "react";
+// import { useSettings } from "../../../SettingContext/SettingsContext";
 
 const locationSettings = [
     { key: "topLeft", label: "Top Left" },
@@ -11,6 +12,8 @@ const locationSettings = [
 
 
 export default function NotificationModule({closePopUp}){
+
+    
 
     return(
         <div className="notification-container m-3">

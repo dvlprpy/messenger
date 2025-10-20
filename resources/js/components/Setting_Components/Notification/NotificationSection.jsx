@@ -1,130 +1,65 @@
+import { useSettings } from "../../../SettingContext/SettingsContext";
+
 export default function NotificationSection({ title }) {
-  const getClassNames = (key) => {
-    switch (key) {
-      case "allowSounds":
-        return {
-          parent: "cursor-pointer allow-sound",
-          child1: "allow-sound-title",
-          subChild1: "allow-sound-icon",
-          subChild2: "allow-sound-name",
-          subchldIcon1: "volume-up",
-          child2: "allow-sound-checkbox",
-          inputId: "flexSwitchCheckChecked",
-          label: "Allow Sounds"
-        };
-      case "allowNotifications":
-        return {
-          parent: "allow-notification",
-          child1: "allow-notification-info",
-          subChild1: "allow-notification-icon",
-          subChild2: "allow-notification-title",
-          subchldIcon1: "bell",
-          child2: "allow-notification-checkbox",
-          inputId: "flexSwitchCheckChecked2",
-          label: "Allow Notifications"
-        };
-      case "groupNotifications":
-        return {
-          parent: "group-notification",
-          child1: "group-notification-info",
-          subChild1: "group-notification-icon",
-          subChild2: "group-notification-title",
-          subchldIcon1: "people",
-          child2: "group-notification-checkbox",
-          inputId: "flexSwitchCheckChecked3",
-          label: "Group Notifications"
-        };
-      case "channelNotifications":
-        return {
-          parent: "channel-notification",
-          child1: "channel-notificaiton-info",
-          subChild1: "channel-notification-icon",
-          subChild2: "channel-notification-title",
-          child2: "channel-notification-checkbox",
-          inputId: "flexSwitchCheckChecked4",
-          isImage: true,
-          label: "Channel Notifications"
-        };
-      case "contactJoined":
-        return {
-          parent: "contact-joined-event",
-          child1: "contact-joined-event-info",
-          subChild1: "contact-joined-event-icon",
-          subChild2: "contact-joined-event-title",
-          subchldIcon1: "person-plus",
-          child2: "contact-joined-event-checkbox",
-          inputId: "flexSwitchCheckChecked5",
-          label: "Contact Joined"
-        };
-      case "pinnedMessages":
-        return {
-          parent: "pinned-message",
-          child1: "pinned-message-info",
-          subChild1: "pinned-message-icon",
-          subChild2: "pinned-message-title",
-          subchldIcon1: "pin-angle",
-          child2: "pinned-message-checkbox",
-          inputId: "flexSwitchCheckChecked6",
-          label: "Pinned Messages"
-        };
-      case "acceptCalls":
-        return {
-          grandParent: "call-notification-setting",
-          childHeader: "call-notification-setting-title fw-bold mt-4 text-primary text-capitalize",
-          childHeaderTitle: "Calls",
-          parent: "accept-call",
-          child1: "accept-call-info",
-          subChild1: "accept-call-icon",
-          subChild2: "accept-call-title",
-          subchldIcon1: "telephone-inbound",
-          child2: "accept-call-checkbox",
-          inputId: "flexSwitchCheckChecked7",
-          label: "Accept Call on This Device"
-        };
-      default:
-        return { parent: "default-setting", icon: "bi bi-gear" };
-    }
+  const { settings, dispatch: settingsDispatch } = useSettings();
+
+  const paths = {
+    allowSounds: "notification_and_sounds.global_setting.allow_sounds",
+    allowNotifications: "notification_and_sounds.global_setting.allow_notification",
+    groupNotifications: "notification_and_sounds.notification_for_chats.group_notification",
+    channelNotifications: "notification_and_sounds.notification_for_chats.channel_notification",
+    contactJoined: "notification_and_sounds.event.contact_joined",
+    pinnedMessages: "notification_and_sounds.event.pinned_messages",
+    acceptCalls: "notification_and_sounds.calls.accept_call_on_this_device",
   };
 
-  const {
-    grandParent,
-    childHeader,
-    childHeaderTitle,
-    parent,
-    child1,
-    subChild1,
-    subChild2,
-    subchldIcon1,
-    child2,
-    inputId,
-    isImage,
-    label
-  } = getClassNames(title)
+  const path = paths[title];
+  let value = false;
+
+  try {
+    value = path.split(".").reduce((obj, key) => obj?.[key], settings);
+  } catch {
+    value = false;
+  }
+
+  const updateSetting = (newValue) => {
+    if (!path) return;
+    settingsDispatch({
+      type: "UPDATE",
+      path,
+      value: newValue,
+    });
+  };
+
+  // تعریف تنظیمات نمایشی (آیکون، عنوان و ...)
+  const uiMap = {
+    allowSounds: { icon: "volume-up", label: "Allow Sounds" },
+    allowNotifications: { icon: "bell", label: "Allow Notifications" },
+    groupNotifications: { icon: "people", label: "Group Notifications" },
+    channelNotifications: { icon: "chat-dots", label: "Channel Notifications" },
+    contactJoined: { icon: "person-plus", label: "Contact Joined" },
+    pinnedMessages: { icon: "pin-angle", label: "Pinned Messages" },
+    acceptCalls: { icon: "telephone-inbound", label: "Accept Call on This Device" },
+  };
+
+  const ui = uiMap[title] || { icon: "gear", label: "Unknown Setting" };
 
   return (
-    <div key={title} className={`cursor-pointer ${parent} d-flex justify-content-between align-items-center ms-2 me-2`}>
-      <div className={`${child1} d-flex align-items-center`}>
-        <div className={`${subChild1} ms-2`}>
-          {isImage ? (
-            <img src="/Icon/horn.svg" width={25} height={25} alt={label} />
-          ) : (
-            <i className={`bi bi-${subchldIcon1} fs-3`}></i>
-          )}
-        </div>
-        <div className={`${subChild2} text-capitalize`}>{label}</div>
+    <div className="d-flex justify-content-between align-items-center ms-2 me-2">
+      <div className="d-flex align-items-center">
+        <i className={`bi bi-${ui.icon} fs-4 me-2`}></i>
+        <span>{ui.label}</span>
       </div>
-      <div className={`${child2} cursor-pointer`}>
+      <div>
         <div className="form-check form-switch">
           <input
             type="checkbox"
             className="form-check-input border border-secondary"
-            // checked={title || false}
-            id={inputId}
-            // onChange={() => updateSetting(key, title)}
+            checked={value}
+            onChange={(e) => updateSetting(e.target.checked)}
           />
-          <label htmlFor={inputId} className="form-check-label"></label>
         </div>
       </div>
     </div>
-  )
+  );
 }

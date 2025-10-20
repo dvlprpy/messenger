@@ -11,7 +11,7 @@ class CallParticipantFactory extends Factory
         return [
             'call_id' => null,
             'user_id' => null,
-            'status' => $this->faker->randomElement(['joined', 'left']),
+            'status' => $this->faker->randomElement(['joined', 'left', 'missed']),
         ];
     }
 }

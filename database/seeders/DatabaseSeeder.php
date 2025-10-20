@@ -3,21 +3,26 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use App\Models\User;
-use App\Models\UserSetting;
-use App\Models\Contact;
-use App\Models\Chat;
-use App\Models\Message;
-use App\Models\MessageStatus;
-use App\Models\Call;
-use App\Models\CallParticipant;
-use App\Models\Story;
+use App\Models\{
+    User,
+    UserSetting,
+    Contact,
+    Chat,
+    Message,
+    MessageStatus,
+    MessageAttachment,
+    MessageReaction,
+    Call,
+    CallParticipant,
+    Story,
+    GlobalSetting
+};
 
 class DatabaseSeeder extends Seeder
 {
     public function run(): void
     {
-        // --- Users + UserSettings ---
+        // --- Users + Settings ---
         $users = User::factory(10)->create();
 
         $users->each(function ($user) {
@@ -27,39 +32,39 @@ class DatabaseSeeder extends Seeder
         });
 
         // --- Contacts ---
-        foreach ($users as $user) {
-            $contacts = $users->where('id', '!=', $user->id)
-                              ->random(min(3, $users->count() - 1));
-            foreach ($contacts as $contact) {
-                Contact::firstOrCreate([
-                    'user_id' => $user->id,
-                    'contact_user_id' => $contact->id,
-                ]);
-            }
-        }
+        Contact::factory(20)->create();
 
-        // --- Chats + Messages + MessageStatuses ---
+        // --- Chats + Messages ---
         $chats = Chat::factory(5)->create();
 
         foreach ($chats as $chat) {
-            // انتخاب کاربران چت
             $chatUsers = $users->random(rand(2, 5));
-            $chat->users()->attach(
-                $chatUsers->pluck('id')->toArray(),
-                ['role' => 'member']
-            );
+            $chat->users()->attach($chatUsers->pluck('id')->toArray(), ['role' => 'member']);
 
-            // ساخت پیام‌ها با sender_id صحیح
-            foreach (range(1,10) as $i) {
+            foreach (range(1, 10) as $i) {
                 $sender = $chatUsers->random();
                 $message = Message::factory()->create([
                     'chat_id' => $chat->id,
                     'sender_id' => $sender->id,
                 ]);
+                // Attachments
+                if (rand(0, 1)) {
+                    MessageAttachment::factory(rand(1, 2))->create([
+                        'message_id' => $message->id,
+                    ]);
+                }
 
-                // ساخت MessageStatus برای همه کاربران چت
+                // Reactions
+                foreach ($chatUsers->random(rand(0, count($chatUsers))) as $reactor) {
+                    MessageReaction::factory()->create([
+                        'message_id' => $message->id,
+                        'user_id' => $reactor->id,
+                    ]);
+                }
+
+                // Statuses
                 foreach ($chatUsers as $chatUser) {
-                    MessageStatus::firstOrCreate([
+                    MessageStatus::updateOrCreate([
                         'message_id' => $message->id,
                         'user_id' => $chatUser->id,
                     ], [
@@ -69,8 +74,7 @@ class DatabaseSeeder extends Seeder
             }
         }
 
-
-        // --- Calls + CallParticipants ---
+        // --- Calls + Participants ---
         $calls = Call::factory(5)->create();
 
         foreach ($calls as $call) {
@@ -86,8 +90,17 @@ class DatabaseSeeder extends Seeder
         }
 
         // --- Stories ---
-        $users->each(function($user) {
-            Story::factory(rand(1,3))->create(['user_id' => $user->id]);
-        });
+        $users->each(fn($u) => Story::factory(rand(1, 3))->create(['user_id' => $u->id]));
+
+        // --- Bot Setting ---
+        $this->call(BotSeeder::class);
+
+
+        $this->call([
+            MessageSchedulingSeeder::class,
+            GlobalSettingsSeeder::class,
+        ]);
+
+        $this->call([ ReactionTypeSeeder::class, MessageReactionSeeder::class, ]);
     }
 }
